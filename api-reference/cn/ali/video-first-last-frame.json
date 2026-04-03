@@ -1,0 +1,344 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Wan 首尾帧图生视频",
+    "version": "1.0.0",
+    "description": "Wan 系列首尾帧图生视频能力文档。公开统一入口为 `/v1/videos`，用于创建异步视频生成任务。",
+    "license": {
+      "name": "Project License",
+      "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://baze-api.powerbuyin.top",
+      "description": "Baze API 服务地址"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Wan Video",
+      "description": "Wan 系列首尾帧视频能力"
+    }
+  ],
+  "paths": {
+    "/v1/videos": {
+      "post": {
+        "summary": "Wan 首尾帧图生视频",
+        "description": "适用于 Wan 系列首尾帧图生视频模型。提交任务后，请通过 `GET /v1/videos/{task_id}` 查询状态。\n\n公开字段：`model`、`image`、`last_frame_url`、`prompt`、`seconds`、`size`、`resolution`、`prompt_extend`、`watermark`、`seed`、`negative_prompt`。首帧决定基础构图，尾帧用于控制收束画面。",
+        "operationId": "aliFirstLastFrameToVideo",
+        "tags": [
+          "Wan Video"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FirstLastFrameVideoRequest"
+              },
+              "examples": {
+                "first_last_frame_video": {
+                  "summary": "首尾帧图生视频",
+                  "value": {
+                    "model": "wan2.2-kf2v-flash",
+                    "image": "https://example.com/first-frame.png",
+                    "last_frame_url": "https://example.com/last-frame.png",
+                    "prompt": "写实风格，一只黑色小猫好奇地看向天空，镜头从平视逐渐上升，最后俯拍它的好奇的眼神。",
+                    "seconds": 5,
+                    "resolution": "720P",
+                    "prompt_extend": true
+                  }
+                },
+                "with_negative_prompt": {
+                  "summary": "使用反向提示词",
+                  "value": {
+                    "model": "wan2.1-kf2v-plus",
+                    "image": "https://example.com/first-frame.png",
+                    "last_frame_url": "https://example.com/last-frame.png",
+                    "prompt": "写实风格，小猫从草地跑向花园",
+                    "negative_prompt": "人物",
+                    "resolution": "720P",
+                    "prompt_extend": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "提交成功，返回视频任务对象。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VideoTaskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数不合法。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/v1/videos/{task_id}": {
+      "get": {
+        "summary": "查询 Ali 视频生成任务状态",
+        "description": "根据任务 ID 查询视频生成任务的状态和结果。",
+        "operationId": "aliQueryFirstLastVideoStatus",
+        "tags": [
+          "Ali Video"
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "视频生成任务 ID。"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "查询成功，返回任务状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VideoTaskQueryResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "任务不存在或已过期。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "FirstLastFrameVideoRequest": {
+        "type": "object",
+        "required": [
+          "model",
+          "image",
+          "last_frame_url"
+        ],
+        "properties": {
+          "model": {
+            "type": "string",
+            "enum": [
+              "wan2.2-kf2v-flash",
+              "wan2.1-kf2v-plus"
+            ],
+            "description": "万相首尾帧图生视频模型。"
+          },
+          "image": {
+            "type": "string",
+            "description": "首帧图像 URL。输出视频的宽高比与首帧图像保持一致。"
+          },
+          "last_frame_url": {
+            "type": "string",
+            "description": "尾帧图像 URL。尾帧会被裁剪适配为首帧的宽高比。"
+          },
+          "prompt": {
+            "type": "string",
+            "description": "文本提示词，描述首帧到尾帧的变化过程。支持中英文，长度不超过 800 个字符。"
+          },
+          "seconds": {
+            "type": "integer",
+            "description": "视频生成时长（秒）。当前固定为 5 秒。",
+            "default": 5
+          },
+          "resolution": {
+            "type": "string",
+            "enum": [
+              "480P",
+              "720P",
+              "1080P"
+            ],
+            "description": "生成视频的分辨率档位。wan2.2-kf2v-flash 支持 480P/720P/1080P，wan2.1-kf2v-plus 支持 720P。",
+            "default": "720P"
+          },
+          "size": {
+            "type": "string",
+            "description": "与 resolution 相同，用于 OpenAI 兼容。可选值：480P、720P、1080P。"
+          },
+          "prompt_extend": {
+            "type": "boolean",
+            "description": "是否开启提示词智能改写。",
+            "default": true
+          },
+          "watermark": {
+            "type": "boolean",
+            "description": "是否在视频中添加水印。",
+            "default": false
+          },
+          "seed": {
+            "type": "integer",
+            "description": "随机数种子，取值范围 [0, 2147483647]。"
+          },
+          "negative_prompt": {
+            "type": "string",
+            "description": "反向提示词，描述不希望在视频中看到的内容。长度不超过 500 个字符。"
+          }
+        }
+      },
+      "VideoTaskResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "task_id": {
+            "type": "string"
+          },
+          "object": {
+            "type": "string",
+            "example": "video"
+          },
+          "model": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "progress": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "VideoTaskQueryResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "task_id": {
+            "type": "string"
+          },
+          "object": {
+            "type": "string",
+            "example": "video"
+          },
+          "model": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "progress": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "completed_at": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "video_url": {
+            "type": "string",
+            "description": "生成视频的下载链接。有效期 24 小时。"
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "orig_prompt": {
+                "type": "string"
+              },
+              "actual_prompt": {
+                "type": "string"
+              },
+              "video_duration": {
+                "type": "integer"
+              },
+              "SR": {
+                "type": "integer"
+              },
+              "video_ratio": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

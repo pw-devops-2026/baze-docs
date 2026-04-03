@@ -1,0 +1,234 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Qwen Text to Image",
+    "version": "1.0.0",
+    "description": "Image generation documentation for Qwen image models. The public endpoint is `/v1/images/generations` and is used to create images from text prompts.",
+    "license": {
+      "name": "Project License",
+      "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://baze-api.powerbuyin.top",
+      "description": "Baze API service endpoint"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Qwen Image",
+      "description": "Image generation capabilities for Qwen image models"
+    }
+  ],
+  "paths": {
+    "/v1/images/generations": {
+      "post": {
+        "summary": "Qwen Text to Image",
+        "description": "For text-to-image generation with Qwen image models.\n\nSupported models include `qwen-image-2.0-pro`, `qwen-image-2.0`, `qwen-image-max`, `qwen-image-plus`, and `qwen-image`. Public fields: `model`, `prompt`, `n`, `size`, `response_format`, `seed`, `watermark`, `prompt_extend`, and `negative_prompt`.",
+        "operationId": "aliTextToImage",
+        "tags": [
+          "Qwen Image"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TextToImageRequest"
+              },
+              "examples": {
+                "basic_request": {
+                  "summary": "Basic text-to-image request",
+                  "value": {
+                    "model": "qwen-image-2.0-pro",
+                    "prompt": "A cute orange cat sitting on a windowsill, sunlight shining on it, realistic style",
+                    "n": 1,
+                    "size": "1024*1024",
+                    "response_format": "url"
+                  }
+                },
+                "advanced_request": {
+                  "summary": "Advanced parameters request",
+                  "value": {
+                    "model": "qwen-image-2.0-pro",
+                    "prompt": "Sci-fi style city night scene, neon lights, futuristic buildings",
+                    "n": 2,
+                    "size": "2048*1024",
+                    "negative_prompt": "low resolution, low quality, deformed, blurry",
+                    "prompt_extend": true,
+                    "watermark": false,
+                    "seed": 42,
+                    "response_format": "url"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success, returns image generation result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "TextToImageRequest": {
+        "type": "object",
+        "required": [
+          "model",
+          "prompt"
+        ],
+        "properties": {
+          "model": {
+            "type": "string",
+            "enum": [
+              "qwen-image-2.0-pro",
+              "qwen-image-2.0-pro-2026-03-03",
+              "qwen-image-2.0",
+              "qwen-image-2.0-2026-03-03",
+              "qwen-image-max",
+              "qwen-image-max-2025-12-30",
+              "qwen-image-plus",
+              "qwen-image-plus-2026-01-09",
+              "qwen-image"
+            ],
+            "description": "Qianwen image model name."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Image generation prompt describing desired content, style, and composition. Supports Chinese and English, max 800 characters."
+          },
+          "n": {
+            "type": "integer",
+            "description": "Number of images to generate. qwen-image-2.0 series supports 1-6, other models fixed at 1.",
+            "minimum": 1,
+            "maximum": 6,
+            "default": 1
+          },
+          "size": {
+            "type": "string",
+            "description": "Output image resolution in format `width*height`.\nqwen-image-2.0 series: total pixels between 512*512 and 2048*2048.\nqwen-image-max/plus series: supports 1664*928(16:9), 1472*1104(4:3), 1328*1328(1:1), 1104*1472(3:4), 928*1664(9:16)",
+            "example": "1024*1024"
+          },
+          "response_format": {
+            "type": "string",
+            "enum": [
+              "url",
+              "b64_json"
+            ],
+            "description": "Response format. url returns download link, b64_json returns Base64 encoded data.",
+            "default": "url"
+          },
+          "seed": {
+            "type": "integer",
+            "description": "Random seed, range [0, 2147483647]. Same seed produces similar results."
+          },
+          "watermark": {
+            "type": "boolean",
+            "description": "Whether to add watermark to the image.",
+            "default": false
+          },
+          "prompt_extend": {
+            "type": "boolean",
+            "description": "Whether to enable prompt intelligent rewriting.",
+            "default": true
+          },
+          "negative_prompt": {
+            "type": "string",
+            "description": "Negative prompt describing content to avoid. Supports Chinese and English, max 500 characters."
+          }
+        }
+      },
+      "ImageResponse": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Unix timestamp of creation time (seconds)."
+          },
+          "data": {
+            "type": "array",
+            "description": "List of generated images.",
+            "items": {
+              "$ref": "#/components/schemas/ImageData"
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "description": "Additional result metadata. Returned fields may vary by capability."
+          }
+        }
+      },
+      "ImageData": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Image download URL. Valid for 24 hours, please save promptly."
+          },
+          "b64_json": {
+            "type": "string",
+            "description": "Base64 encoded image data. Returned when response_format=b64_json."
+          },
+          "revised_prompt": {
+            "type": "string",
+            "description": "Optimized prompt (when prompt_extend is enabled)."
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
