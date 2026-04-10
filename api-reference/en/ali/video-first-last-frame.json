@@ -25,7 +25,7 @@
     "/v1/videos": {
       "post": {
         "summary": "Wan First-and-Last-Frame to Video",
-        "description": "For Wan first-and-last-frame video models. After submission, query task status with `GET /v1/videos/{task_id}`.\n\nPublic fields: `model`, `image`, `last_frame_url`, `prompt`, `seconds`, `size`, `resolution`, `prompt_extend`, `watermark`, `seed`, and `negative_prompt`. The first frame sets the base composition, and the last frame guides the ending shot.",
+        "description": "For Wan first-and-last-frame video models. After submission, query task status with `GET /v1/videos/{task_id}`.\n\nPublic fields: `model`, `image`, `last_frame_url`, `prompt`, `seconds`, `size`, `prompt_extend`, `watermark`, `seed`, and `negative_prompt`. The first frame sets the base composition, and the last frame guides the ending shot.",
         "operationId": "aliFirstLastFrameToVideo",
         "tags": [
           "Wan Video"
@@ -45,8 +45,8 @@
                     "image": "https://example.com/first-frame.png",
                     "last_frame_url": "https://example.com/last-frame.png",
                     "prompt": "Realistic style, a black kitten curiously looking at the sky, camera moving up from eye level to top-down",
-                    "seconds": 5,
-                    "resolution": "720P",
+                    "seconds": "5",
+                    "size": "720P",
                     "prompt_extend": true
                   }
                 },
@@ -58,7 +58,7 @@
                     "last_frame_url": "https://example.com/last-frame.png",
                     "prompt": "Cat running from grass to garden",
                     "negative_prompt": "people",
-                    "resolution": "720P",
+                    "size": "720P",
                     "prompt_extend": true
                   }
                 }
@@ -461,11 +461,11 @@
             "description": "Text prompt describing transition from first to last frame. Supports Chinese and English, max 800 characters."
           },
           "seconds": {
-            "type": "integer",
-            "description": "Video duration in seconds. Currently fixed at 5 seconds.",
-            "default": 5
+            "type": "string",
+            "description": "String form of the video duration in seconds. Currently fixed at `\"5\"`.",
+            "default": "5"
           },
-          "resolution": {
+          "size": {
             "type": "string",
             "enum": [
               "480P",
@@ -474,10 +474,6 @@
             ],
             "description": "Video resolution. wan2.2-kf2v-flash supports 480P/720P/1080P, wan2.1-kf2v-plus supports 720P only.",
             "default": "720P"
-          },
-          "size": {
-            "type": "string",
-            "description": "Same as resolution, for OpenAI compatibility. Options: 480P, 720P, 1080P."
           },
           "prompt_extend": {
             "type": "boolean",

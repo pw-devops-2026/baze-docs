@@ -25,7 +25,7 @@
     "/v1/videos": {
       "post": {
         "summary": "Wan 首帧图生视频",
-        "description": "适用于 Wan 系列首帧图生视频模型。当前项目已实现 Ali `wan2.7-i2v`。提交任务后，请通过 `GET /v1/videos/{task_id}` 查询状态。\n\n公开字段：`model`、`image`、`prompt`、`seconds`、`size`、`resolution`、`prompt_extend`、`watermark`、`seed`、`negative_prompt`。生成结果链接通常为临时地址，请及时下载保存。",
+        "description": "适用于 Wan 系列首帧图生视频模型。当前项目已实现 Ali `wan2.7-i2v`。提交任务后，请通过 `GET /v1/videos/{task_id}` 查询状态。\n\n公开字段：`model`、`image`、`prompt`、`seconds`、`size`、`prompt_extend`、`watermark`、`seed`、`negative_prompt`。生成结果链接通常为临时地址，请及时下载保存。",
         "operationId": "aliFirstFrameToVideo",
         "tags": [
           "Wan Video"
@@ -44,8 +44,8 @@
                     "model": "wan2.7-i2v",
                     "image": "https://example.com/first-frame.jpg",
                     "prompt": "写实风格，一只黑色小猫好奇地看向天空，镜头从平视逐渐上升，最后俯拍它的好奇的眼神。",
-                    "seconds": 5,
-                    "resolution": "720P",
+                    "seconds": "5",
+                    "size": "720P",
                     "prompt_extend": true
                   }
                 }
@@ -442,23 +442,19 @@
             "description": "文本提示词，描述期望的视频内容。支持中英文，长度不超过 800 个字符。"
           },
           "seconds": {
-            "type": "integer",
-            "description": "视频生成时长（秒）。当前固定为 5 秒。",
-            "default": 5
+            "type": "string",
+            "description": "视频生成时长（秒）的字符串形式。当前固定为 `\"5\"`。",
+            "default": "5"
           },
-          "resolution": {
+          "size": {
             "type": "string",
             "enum": [
               "480P",
               "720P",
               "1080P"
             ],
-            "description": "生成视频的分辨率档位。`wan2.7-i2v` 当前项目实现默认使用 1080P，也接受兼容 OpenAI 请求中的 `size` 别名。",
+            "description": "生成视频的分辨率档位。`wan2.7-i2v` 当前项目实现默认使用 1080P。可选值：480P、720P、1080P。",
             "default": "1080P"
-          },
-          "size": {
-            "type": "string",
-            "description": "与 resolution 相同，用于 OpenAI 兼容。可选值：480P、720P、1080P。"
           },
           "prompt_extend": {
             "type": "boolean",

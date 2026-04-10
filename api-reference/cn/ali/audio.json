@@ -3,12 +3,12 @@
   "info": {
     "title": "阿里语音合成",
     "version": "1.0.0",
-    "description": "阿里通道语音合成能力文档。公开统一入口为 `/v1/audio/speech`，当前项目已实现 `qwen3-tts-instruct-flash` 的官方字段子集。\n\n本文档只描述项目当前已实现、且与阿里官方能力一致的字段：`model`、`input`、`voice`、`instructions`、`optimize_instructions`、`language_type`、`stream_format`。\n\n在统一入口中，`stream_format` 既承担“开启流式输出”的作用，也会继续作为阿里上游需要的流式编码值透传。也就是说，任何非空 `stream_format` 都会被视为流式请求。"
+    "description": "阿里通道语音合成能力文档。公开统一入口为 `/v1/audio/speech`，当前项目已实现 `qwen3-tts-instruct-flash` 的官方字段子集。\n\n本文档只描述项目当前已实现、且与阿里官方能力一致的字段：`model`、`input`、`voice`、`instructions`、`optimize_instructions`、`language_type`、`stream_format`。\n\n在统一入口中，`stream_format` 既承担“开启流式输出”的作用，也会继续作为阿里上游需要的流式编码值透传。也就是说，任何非空 `stream_format` 都会被视为流式请求。\n\n项目计费说明：网关会把上游 `usage.characters` 映射到统一 usage 的 `prompt_tokens_details.audio_tokens`，并保留 `usage.output_tokens -> usage.completion_tokens_details.audio_tokens`；当 Internal Pricing 配置 `quota_type=3` 时，最终按统一输入音频字符数结算。"
   },
   "servers": [
     {
-      "url": "/",
-      "description": "当前 new-api 网关实例"
+      "url": "https://baze-api.powerbuyin.top",
+      "description": "Baze API 服务地址"
     }
   ],
   "tags": [
@@ -61,7 +61,7 @@
         },
         "responses": {
           "200": {
-            "description": "流式调用成功，返回阿里 SSE 数据。",
+            "description": "流式调用成功，返回阿里 SSE 数据。项目内部结算会读取 `usage.characters` 作为统一输入音频字符数。",
             "content": {
               "text/event-stream": {
                 "schema": {
@@ -71,7 +71,7 @@
             }
           },
           "302": {
-            "description": "非流式调用成功。`Location` 头为音频文件临时下载地址。",
+            "description": "非流式调用成功。`Location` 头为音频文件临时下载地址。项目内部结算会读取 `usage.characters` 作为统一输入音频字符数。",
             "headers": {
               "Location": {
                 "schema": {

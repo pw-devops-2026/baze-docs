@@ -25,7 +25,7 @@
     "/v1/videos": {
       "post": {
         "summary": "Wan 首尾帧图生视频",
-        "description": "适用于 Wan 系列首尾帧图生视频模型。提交任务后，请通过 `GET /v1/videos/{task_id}` 查询状态。\n\n公开字段：`model`、`image`、`last_frame_url`、`prompt`、`seconds`、`size`、`resolution`、`prompt_extend`、`watermark`、`seed`、`negative_prompt`。首帧决定基础构图，尾帧用于控制收束画面。",
+        "description": "适用于 Wan 系列首尾帧图生视频模型。提交任务后，请通过 `GET /v1/videos/{task_id}` 查询状态。\n\n公开字段：`model`、`image`、`last_frame_url`、`prompt`、`seconds`、`size`、`prompt_extend`、`watermark`、`seed`、`negative_prompt`。首帧决定基础构图，尾帧用于控制收束画面。",
         "operationId": "aliFirstLastFrameToVideo",
         "tags": [
           "Wan Video"
@@ -45,8 +45,8 @@
                     "image": "https://example.com/first-frame.png",
                     "last_frame_url": "https://example.com/last-frame.png",
                     "prompt": "写实风格，一只黑色小猫好奇地看向天空，镜头从平视逐渐上升，最后俯拍它的好奇的眼神。",
-                    "seconds": 5,
-                    "resolution": "720P",
+                    "seconds": "5",
+                    "size": "720P",
                     "prompt_extend": true
                   }
                 },
@@ -58,7 +58,7 @@
                     "last_frame_url": "https://example.com/last-frame.png",
                     "prompt": "写实风格，小猫从草地跑向花园",
                     "negative_prompt": "人物",
-                    "resolution": "720P",
+                    "size": "720P",
                     "prompt_extend": true
                   }
                 }
@@ -461,11 +461,11 @@
             "description": "文本提示词，描述首帧到尾帧的变化过程。支持中英文，长度不超过 800 个字符。"
           },
           "seconds": {
-            "type": "integer",
-            "description": "视频生成时长（秒）。当前固定为 5 秒。",
-            "default": 5
+            "type": "string",
+            "description": "视频生成时长（秒）的字符串形式。当前固定为 `\"5\"`。",
+            "default": "5"
           },
-          "resolution": {
+          "size": {
             "type": "string",
             "enum": [
               "480P",
@@ -474,10 +474,6 @@
             ],
             "description": "生成视频的分辨率档位。wan2.2-kf2v-flash 支持 480P/720P/1080P，wan2.1-kf2v-plus 支持 720P。",
             "default": "720P"
-          },
-          "size": {
-            "type": "string",
-            "description": "与 resolution 相同，用于 OpenAI 兼容。可选值：480P、720P、1080P。"
           },
           "prompt_extend": {
             "type": "boolean",

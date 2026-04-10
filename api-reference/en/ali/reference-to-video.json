@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Wan First-Frame to Video",
+    "title": "Wan Reference-to-Video",
     "version": "1.0.0",
-    "description": "First-frame image-to-video documentation for Wan models. The public endpoint is `/v1/videos` and creates asynchronous generation tasks.",
+    "description": "Wan reference-to-video capability document. The public unified endpoint is `/v1/videos` for creating asynchronous video generation tasks.",
     "license": {
       "name": "Project License",
       "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
@@ -18,15 +18,15 @@
   "tags": [
     {
       "name": "Wan Video",
-      "description": "Image-to-video capabilities for Wan models"
+      "description": "Wan reference-to-video capability"
     }
   ],
   "paths": {
     "/v1/videos": {
       "post": {
-        "summary": "Wan First-Frame to Video",
-        "description": "For Wan first-frame image-to-video models. The project currently implements Ali `wan2.7-i2v`. After submission, query task status with `GET /v1/videos/{task_id}`.\n\nPublic fields: `model`, `image`, `prompt`, `seconds`, `size`, `prompt_extend`, `watermark`, `seed`, and `negative_prompt`. Generated file links are typically temporary and should be downloaded promptly.",
-        "operationId": "aliFirstFrameToVideo",
+        "summary": "Wan reference-to-video",
+        "description": "For Wan reference-to-video models. The current project implementation exposes Ali `wan2.7-r2v`. After submission, query task status with `GET /v1/videos/{task_id}`.\n\nPublic fields: `model`, `subject_reference`, `prompt`, `seconds`, `size`, `prompt_extend`, `watermark`, and `seed`. `subject_reference` must not be mixed with `image` or `images`.",
+        "operationId": "aliReferenceToVideo",
         "tags": [
           "Wan Video"
         ],
@@ -35,18 +35,24 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FirstFrameVideoRequest"
+                "$ref": "#/components/schemas/ReferenceToVideoRequest"
               },
               "examples": {
-                "first_frame_video": {
-                  "summary": "First frame to video",
+                "reference_to_video": {
+                  "summary": "Basic reference-to-video request",
                   "value": {
-                    "model": "wan2.7-i2v",
-                    "image": "https://example.com/first-frame.jpg",
-                    "prompt": "Realistic style, a black kitten curiously looking at the sky, camera moving up from eye level to top-down",
+                    "model": "wan2.7-r2v",
+                    "prompt": "Have the character wave to the camera and walk forward slowly.",
                     "seconds": "5",
-                    "size": "720P",
-                    "prompt_extend": true
+                    "size": "1080P",
+                    "subject_reference": [
+                      {
+                        "type": "character",
+                        "image": [
+                          "https://example.com/assets/subject-reference.png"
+                        ]
+                      }
+                    ]
                   }
                 }
               }
@@ -419,63 +425,6 @@
       }
     },
     "schemas": {
-      "FirstFrameVideoRequest": {
-        "type": "object",
-        "required": [
-          "model",
-          "image"
-        ],
-        "properties": {
-          "model": {
-            "type": "string",
-            "enum": [
-              "wan2.7-i2v"
-            ],
-            "description": "Wan first-frame-to-video model. The current project implementation exposes `wan2.7-i2v`."
-          },
-          "image": {
-            "type": "string",
-            "description": "First frame image URL. Supports HTTP/HTTPS publicly accessible addresses."
-          },
-          "prompt": {
-            "type": "string",
-            "description": "Text prompt describing desired video content. Supports Chinese and English, max 800 characters."
-          },
-          "seconds": {
-            "type": "string",
-            "description": "String form of the video duration in seconds. Currently fixed at `\"5\"`.",
-            "default": "5"
-          },
-          "size": {
-            "type": "string",
-            "enum": [
-              "480P",
-              "720P",
-              "1080P"
-            ],
-            "description": "Video resolution. The current `wan2.7-i2v` implementation defaults to 1080P. Options: 480P, 720P, 1080P.",
-            "default": "1080P"
-          },
-          "prompt_extend": {
-            "type": "boolean",
-            "description": "Whether to enable prompt intelligent rewriting.",
-            "default": true
-          },
-          "watermark": {
-            "type": "boolean",
-            "description": "Whether to add watermark to video.",
-            "default": false
-          },
-          "seed": {
-            "type": "integer",
-            "description": "Random seed, range [0, 2147483647]."
-          },
-          "negative_prompt": {
-            "type": "string",
-            "description": "Negative prompt describing content to avoid. Max 500 characters."
-          }
-        }
-      },
       "VideoTaskResponse": {
         "type": "object",
         "properties": {
@@ -607,6 +556,81 @@
                 "type": "string"
               }
             }
+          }
+        }
+      },
+      "ReferenceToVideoRequest": {
+        "type": "object",
+        "required": [
+          "model",
+          "subject_reference"
+        ],
+        "properties": {
+          "model": {
+            "type": "string",
+            "enum": [
+              "wan2.7-r2v"
+            ],
+            "description": "Wan reference-to-video model. The current project implementation exposes `wan2.7-r2v`."
+          },
+          "subject_reference": {
+            "type": "array",
+            "description": "Subject reference input. Must not be mixed with `image` or `images`.",
+            "items": {
+              "$ref": "#/components/schemas/VideoSubjectReference"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Text prompt describing desired video content. Supports Chinese and English, max 800 characters."
+          },
+          "seconds": {
+            "type": "string",
+            "description": "Video duration in seconds as a string. Current default is `\"5\"`.",
+            "default": "5"
+          },
+          "size": {
+            "type": "string",
+            "enum": [
+              "720P",
+              "1080P"
+            ],
+            "description": "Video resolution tier. The current `wan2.7-r2v` implementation defaults to 1080P. Options: 720P, 1080P.",
+            "default": "1080P"
+          },
+          "prompt_extend": {
+            "type": "boolean",
+            "description": "Whether to enable prompt optimization. The project forwards this field upstream.",
+            "default": false
+          },
+          "watermark": {
+            "type": "boolean",
+            "description": "Whether to add a watermark to the generated video.",
+            "default": false
+          },
+          "seed": {
+            "type": "integer",
+            "description": "Random seed in range [0, 2147483647]."
+          }
+        }
+      },
+      "VideoSubjectReference": {
+        "type": "object",
+        "required": [
+          "type",
+          "image"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Subject reference type, for example `character`."
+          },
+          "image": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of subject reference image URLs. The current implementation requires at least one image."
           }
         }
       }

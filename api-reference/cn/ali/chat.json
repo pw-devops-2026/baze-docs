@@ -3,7 +3,7 @@
   "info": {
     "title": "千问对话补全",
     "version": "1.0.0",
-    "description": "千问系列模型的对话接口文档。公开统一入口为 `/v1/chat/completions`，适用于文本对话、多模态理解、流式输出与工具调用。",
+    "description": "阿里对话能力文档。公开统一入口为 `/v1/chat/completions`，仅覆盖当前渠道最终白名单中的公开对话模型。",
     "license": {
       "name": "Project License",
       "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
@@ -25,7 +25,7 @@
     "/v1/chat/completions": {
       "post": {
         "summary": "千问对话补全",
-        "description": "适用于阿里通义千问兼容 OpenAI Chat Completions 的公开对话模型，包括 `qwen3-max`、`qwen3.6-plus`、`qwen3.5-flash`、`qwen3-coder-plus`、`deepseek-v3.2` 以及仍保持公开兼容的 `qwen-turbo`、`qwen-plus`、`qwen-max` 等。\n\n本文档描述的是 Ali 通道已实现的官方公开对话能力，不等同于 internal 渠道运营白名单。\n\n公开字段：`model`、`messages`、`stream`、`temperature`、`top_p`、`max_tokens`、`stop`、`seed`、`tools`、`tool_choice`、`enable_search`、`response_format`。",
+        "description": "适用于阿里渠道最终白名单中的公开对话模型：`qwen3-max`、`qwen3.6-plus`、`qwen3.5-flash`、`qwen3-coder-plus`、`deepseek-v3.2`。\n\n公开字段：`model`、`messages`、`stream`、`temperature`、`top_p`、`max_tokens`、`stop`、`seed`、`tools`、`tool_choice`、`enable_search`、`response_format`。",
         "operationId": "aliChatCompletions",
         "tags": [
           "Qwen Chat"
@@ -59,7 +59,7 @@
                 "vision_chat": {
                   "summary": "图像理解（多模态）",
                   "value": {
-                    "model": "qwen-vl-plus",
+                    "model": "qwen3.6-plus",
                     "messages": [
                       {
                         "role": "user",
@@ -272,7 +272,14 @@
         "properties": {
           "model": {
             "type": "string",
-            "description": "模型名称。支持的公开 Ali 对话模型包括 qwen3-max、qwen3.6-plus、qwen3.5-flash、qwen3-coder-plus、deepseek-v3.2，以及其他仍兼容 `/v1/chat/completions` 的 Qwen 模型。",
+            "enum": [
+              "qwen3-max",
+              "qwen3.6-plus",
+              "qwen3.5-flash",
+              "qwen3-coder-plus",
+              "deepseek-v3.2"
+            ],
+            "description": "模型名称。仅支持当前阿里渠道最终白名单中的公开对话模型。",
             "example": "qwen3.6-plus"
           },
           "messages": {

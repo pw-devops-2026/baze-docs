@@ -3,7 +3,7 @@
   "info": {
     "title": "Qwen Image Editing",
     "version": "1.0.0",
-    "description": "Image editing documentation for Qwen image models. The public endpoint is `/v1/images/edits` and supports image editing, image fusion, and style transformation.",
+    "description": "Ali image editing capability document. The public unified endpoint is `/v1/images/edits`, limited to image editing models in the current final Ali whitelist.",
     "license": {
       "name": "Project License",
       "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
@@ -25,7 +25,7 @@
     "/v1/images/edits": {
       "post": {
         "summary": "Qwen Image Editing",
-        "description": "For Qwen image editing models.\n\nSupports single-image editing and multi-image fusion. Public fields: `model`, `image`, `prompt`, `n`, `size`, `response_format`, `seed`, `watermark`, `prompt_extend`, and `negative_prompt`. Both JSON and `multipart/form-data` request modes are supported.",
+        "description": "For the image editing models in the final Ali whitelist: `qwen-image-2.0-pro` and `wan2.7-image-pro`.\n\nSupports single-image editing and multi-image fusion. Public fields: `model`, `image`, `prompt`, `n`, `size`, `response_format`, `seed`, `watermark`, `prompt_extend`, and `negative_prompt`. Both JSON and `multipart/form-data` are supported.",
         "operationId": "aliImageToImage",
         "tags": [
           "Qwen Image"
@@ -271,17 +271,9 @@
             "type": "string",
             "enum": [
               "qwen-image-2.0-pro",
-              "qwen-image-2.0-pro-2026-03-03",
-              "qwen-image-2.0",
-              "qwen-image-2.0-2026-03-03",
-              "qwen-image-edit-max",
-              "qwen-image-edit-max-2026-01-16",
-              "qwen-image-edit-plus",
-              "qwen-image-edit-plus-2025-12-15",
-              "qwen-image-edit-plus-2025-10-30",
-              "qwen-image-edit"
+              "wan2.7-image-pro"
             ],
-            "description": "Qianwen image editing model name."
+            "description": "Image editing model name."
           },
           "prompt": {
             "type": "string",
@@ -352,7 +344,11 @@
         "properties": {
           "model": {
             "type": "string",
-            "description": "Qianwen image editing model name."
+            "description": "Qianwen image editing model name.",
+            "enum": [
+              "qwen-image-2.0-pro",
+              "wan2.7-image-pro"
+            ]
           },
           "prompt": {
             "type": "string",

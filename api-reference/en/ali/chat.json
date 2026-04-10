@@ -3,7 +3,7 @@
   "info": {
     "title": "Qwen Chat Completions",
     "version": "1.0.0",
-    "description": "Chat completions documentation for the Qwen model family. The public endpoint is `/v1/chat/completions`, supporting text chat, multimodal understanding, streaming, and tool calling.",
+    "description": "Ali chat capability document. The public unified endpoint is `/v1/chat/completions`, limited to the chat models in the current final Ali whitelist.",
     "license": {
       "name": "Project License",
       "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
@@ -25,7 +25,7 @@
     "/v1/chat/completions": {
       "post": {
         "summary": "Qwen Chat Completions",
-        "description": "For Ali chat models that publicly support the OpenAI Chat Completions contract, including `qwen3-max`, `qwen3.6-plus`, `qwen3.5-flash`, `qwen3-coder-plus`, `deepseek-v3.2`, and legacy public Qwen chat models such as `qwen-turbo`, `qwen-plus`, and `qwen-max`.\n\nThis document describes implemented public Ali chat capability, not the internal operations whitelist.\n\nPublic fields: `model`, `messages`, `stream`, `temperature`, `top_p`, `max_tokens`, `stop`, `seed`, `tools`, `tool_choice`, `enable_search`, and `response_format`.",
+        "description": "For the public chat models in the final Ali whitelist only: `qwen3-max`, `qwen3.6-plus`, `qwen3.5-flash`, `qwen3-coder-plus`, and `deepseek-v3.2`.\n\nPublic fields: `model`, `messages`, `stream`, `temperature`, `top_p`, `max_tokens`, `stop`, `seed`, `tools`, `tool_choice`, `enable_search`, and `response_format`.",
         "operationId": "aliChatCompletions",
         "tags": [
           "Qwen Chat"
@@ -59,7 +59,7 @@
                 "vision_chat": {
                   "summary": "Vision understanding (multimodal)",
                   "value": {
-                    "model": "qwen-vl-plus",
+                    "model": "qwen3.6-plus",
                     "messages": [
                       {
                         "role": "user",
@@ -272,7 +272,14 @@
         "properties": {
           "model": {
             "type": "string",
-            "description": "Model name. Publicly implemented Ali chat models include qwen3-max, qwen3.6-plus, qwen3.5-flash, qwen3-coder-plus, deepseek-v3.2, and other Qwen models that remain compatible with `/v1/chat/completions`.",
+            "enum": [
+              "qwen3-max",
+              "qwen3.6-plus",
+              "qwen3.5-flash",
+              "qwen3-coder-plus",
+              "deepseek-v3.2"
+            ],
+            "description": "Model name. Only the public chat models in the final Ali whitelist are supported.",
             "example": "qwen3.6-plus"
           },
           "messages": {

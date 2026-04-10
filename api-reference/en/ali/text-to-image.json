@@ -3,7 +3,7 @@
   "info": {
     "title": "Qwen Text to Image",
     "version": "1.0.0",
-    "description": "Image generation documentation for Qwen image models. The public endpoint is `/v1/images/generations` and is used to create images from text prompts.",
+    "description": "Ali image generation capability document. The public unified endpoint is `/v1/images/generations`, limited to text-to-image models in the current final Ali whitelist.",
     "license": {
       "name": "Project License",
       "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
@@ -25,7 +25,7 @@
     "/v1/images/generations": {
       "post": {
         "summary": "Qwen Text to Image",
-        "description": "For text-to-image generation with Qwen image models.\n\nSupported models include `qwen-image-2.0-pro`, `qwen-image-2.0`, `qwen-image-max`, `qwen-image-plus`, and `qwen-image`. Public fields: `model`, `prompt`, `n`, `size`, `response_format`, `seed`, `watermark`, `prompt_extend`, and `negative_prompt`.",
+        "description": "For the text-to-image models in the final Ali whitelist: `qwen-image-2.0-pro` and `wan2.7-image-pro`.\n\nPublic fields: `model`, `prompt`, `n`, `size`, `response_format`, `seed`, `watermark`, `prompt_extend`, and `negative_prompt`.",
         "operationId": "aliTextToImage",
         "tags": [
           "Qwen Image"
@@ -267,16 +267,9 @@
             "type": "string",
             "enum": [
               "qwen-image-2.0-pro",
-              "qwen-image-2.0-pro-2026-03-03",
-              "qwen-image-2.0",
-              "qwen-image-2.0-2026-03-03",
-              "qwen-image-max",
-              "qwen-image-max-2025-12-30",
-              "qwen-image-plus",
-              "qwen-image-plus-2026-01-09",
-              "qwen-image"
+              "wan2.7-image-pro"
             ],
-            "description": "Qianwen image model name."
+            "description": "Image generation model name."
           },
           "prompt": {
             "type": "string",

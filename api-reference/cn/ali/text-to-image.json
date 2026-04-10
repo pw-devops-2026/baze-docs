@@ -3,7 +3,7 @@
   "info": {
     "title": "Qwen 文生图",
     "version": "1.0.0",
-    "description": "Qwen 图像生成能力文档。公开统一入口为 `/v1/images/generations`，用于根据文本提示词生成图片。",
+    "description": "阿里图像生成能力文档。公开统一入口为 `/v1/images/generations`，仅覆盖当前渠道最终白名单中的文生图模型。",
     "license": {
       "name": "Project License",
       "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
@@ -25,7 +25,7 @@
     "/v1/images/generations": {
       "post": {
         "summary": "Qwen 文生图",
-        "description": "适用于 Qwen 图像生成模型的文生图能力。\n\n支持模型包括 `qwen-image-2.0-pro`、`qwen-image-2.0`、`qwen-image-max`、`qwen-image-plus`、`qwen-image` 等。公开字段：`model`、`prompt`、`n`、`size`、`response_format`、`seed`、`watermark`、`prompt_extend`、`negative_prompt`。",
+        "description": "适用于当前阿里渠道最终白名单中的文生图模型：`qwen-image-2.0-pro`、`wan2.7-image-pro`。\n\n公开字段：`model`、`prompt`、`n`、`size`、`response_format`、`seed`、`watermark`、`prompt_extend`、`negative_prompt`。",
         "operationId": "aliTextToImage",
         "tags": [
           "Qwen Image"
@@ -267,16 +267,9 @@
             "type": "string",
             "enum": [
               "qwen-image-2.0-pro",
-              "qwen-image-2.0-pro-2026-03-03",
-              "qwen-image-2.0",
-              "qwen-image-2.0-2026-03-03",
-              "qwen-image-max",
-              "qwen-image-max-2025-12-30",
-              "qwen-image-plus",
-              "qwen-image-plus-2026-01-09",
-              "qwen-image"
+              "wan2.7-image-pro"
             ],
-            "description": "千问图像模型名称。"
+            "description": "图像生成模型名称。"
           },
           "prompt": {
             "type": "string",

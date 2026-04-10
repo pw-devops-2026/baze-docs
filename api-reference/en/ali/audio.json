@@ -3,12 +3,12 @@
   "info": {
     "title": "Ali Text-to-Speech",
     "version": "1.0.0",
-    "description": "Ali channel text-to-speech capability for `/v1/audio/speech`. The project currently implements the official field subset for `qwen3-tts-instruct-flash` only.\n\nThis document intentionally includes only the implemented official fields: `model`, `input`, `voice`, `instructions`, `optimize_instructions`, `language_type`, and `stream_format`.\n\nOn the unified gateway surface, `stream_format` both enables streaming and carries the Ali upstream streaming format value. In other words, any non-empty `stream_format` is treated as a streaming request."
+    "description": "Ali channel text-to-speech capability for `/v1/audio/speech`. The project currently implements the official field subset for `qwen3-tts-instruct-flash` only.\n\nThis document intentionally includes only the implemented official fields: `model`, `input`, `voice`, `instructions`, `optimize_instructions`, `language_type`, and `stream_format`.\n\nOn the unified gateway surface, `stream_format` both enables streaming and carries the Ali upstream streaming format value. In other words, any non-empty `stream_format` is treated as a streaming request.\n\nProject billing note: the gateway maps upstream `usage.characters` to unified `usage.prompt_tokens_details.audio_tokens`, keeps `usage.output_tokens` in `usage.completion_tokens_details.audio_tokens`, and uses the unified input audio characters for `quota_type=3` settlement."
   },
   "servers": [
     {
-      "url": "/",
-      "description": "Current new-api gateway instance"
+      "url": "https://baze-api.powerbuyin.top",
+      "description": "Baze API service endpoint"
     }
   ],
   "tags": [
@@ -61,7 +61,7 @@
         },
         "responses": {
           "200": {
-            "description": "Streaming success. Returns Ali SSE payloads.",
+            "description": "Streaming success. Returns Ali SSE payloads. For internal settlement, the gateway reads `usage.characters` as the unified input audio character count.",
             "content": {
               "text/event-stream": {
                 "schema": {
@@ -71,7 +71,7 @@
             }
           },
           "302": {
-            "description": "Non-streaming success. The `Location` header contains a temporary audio file URL.",
+            "description": "Non-streaming success. The `Location` header contains a temporary audio file URL. For internal settlement, the gateway reads `usage.characters` as the unified input audio character count.",
             "headers": {
               "Location": {
                 "schema": {

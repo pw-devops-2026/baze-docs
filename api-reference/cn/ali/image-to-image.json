@@ -3,7 +3,7 @@
   "info": {
     "title": "Qwen 图像编辑",
     "version": "1.0.0",
-    "description": "Qwen 图像编辑能力文档。公开统一入口为 `/v1/images/edits`，用于单图编辑、多图融合与风格改写。",
+    "description": "阿里图像编辑能力文档。公开统一入口为 `/v1/images/edits`，仅覆盖当前渠道最终白名单中的图像编辑模型。",
     "license": {
       "name": "Project License",
       "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
@@ -25,7 +25,7 @@
     "/v1/images/edits": {
       "post": {
         "summary": "Qwen 图像编辑",
-        "description": "适用于 Qwen 图像编辑模型。\n\n支持单图编辑与多图融合。公开字段：`model`、`image`、`prompt`、`n`、`size`、`response_format`、`seed`、`watermark`、`prompt_extend`、`negative_prompt`。JSON 与 `multipart/form-data` 两种请求方式均可使用。",
+        "description": "适用于当前阿里渠道最终白名单中的图像编辑模型：`qwen-image-2.0-pro`、`wan2.7-image-pro`。\n\n支持单图编辑与多图融合。公开字段：`model`、`image`、`prompt`、`n`、`size`、`response_format`、`seed`、`watermark`、`prompt_extend`、`negative_prompt`。JSON 与 `multipart/form-data` 两种请求方式均可使用。",
         "operationId": "aliImageToImage",
         "tags": [
           "Qwen Image"
@@ -271,17 +271,9 @@
             "type": "string",
             "enum": [
               "qwen-image-2.0-pro",
-              "qwen-image-2.0-pro-2026-03-03",
-              "qwen-image-2.0",
-              "qwen-image-2.0-2026-03-03",
-              "qwen-image-edit-max",
-              "qwen-image-edit-max-2026-01-16",
-              "qwen-image-edit-plus",
-              "qwen-image-edit-plus-2025-12-15",
-              "qwen-image-edit-plus-2025-10-30",
-              "qwen-image-edit"
+              "wan2.7-image-pro"
             ],
-            "description": "千问图像编辑模型名称。"
+            "description": "图像编辑模型名称。"
           },
           "prompt": {
             "type": "string",
@@ -352,7 +344,11 @@
         "properties": {
           "model": {
             "type": "string",
-            "description": "千问图像编辑模型名称。"
+            "description": "千问图像编辑模型名称。",
+            "enum": [
+              "qwen-image-2.0-pro",
+              "wan2.7-image-pro"
+            ]
           },
           "prompt": {
             "type": "string",
