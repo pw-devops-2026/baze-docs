@@ -25,7 +25,7 @@
     "/v1/videos": {
       "post": {
         "summary": "Seedance 视频生成",
-        "description": "适用于 Seedance 系列视频模型。提交任务后，请通过 `GET /v1/videos/{task_id}` 查询状态。\n\n当前公开支持文生视频与首帧图生视频。本文档覆盖的请求字段包括 `model`、`prompt`、`image`、`seconds`、`size`、`resolution`、`ratio`、`seed`、`camera_fixed`、`watermark`、`generate_audio`、`draft`、`return_last_frame`。",
+        "description": "适用于 Seedance 系列视频模型。提交任务后，请通过 `GET /v1/videos/{task_id}` 查询状态。\n\n当前公开支持文生视频与首帧图生视频。本文档覆盖的请求字段包括 `model`、`prompt`、`image`、`seconds`、`size`、`ratio`、`seed`、`camera_fixed`、`watermark`、`generate_audio`、`draft`、`return_last_frame`。其中 `size` 是对外公开的清晰度与计费档位字段。",
         "operationId": "byteplusVideoGenerations",
         "tags": [
           "Seedance Video"
@@ -44,7 +44,7 @@
                     "model": "seedance-1-5-pro-251215",
                     "prompt": "一只小猫在草地上奔跑，阳光明媚，镜头跟随移动",
                     "seconds": 5,
-                    "resolution": "720p",
+                    "size": "720p",
                     "ratio": "16:9",
                     "generate_audio": true
                   }
@@ -56,7 +56,7 @@
                     "prompt": "镜头缓缓推进，女孩微笑",
                     "image": "https://example.com/first-frame.jpg",
                     "seconds": 5,
-                    "resolution": "720p",
+                    "size": "720p",
                     "ratio": "adaptive"
                   }
                 },
@@ -66,7 +66,7 @@
                     "model": "seedance-1-5-pro-251215",
                     "prompt": "小狗玩球",
                     "draft": true,
-                    "resolution": "480p"
+                    "size": "480p"
                   }
                 }
               }
@@ -294,18 +294,14 @@
             "maximum": 12,
             "default": 5
           },
-          "resolution": {
+          "size": {
             "type": "string",
             "enum": [
               "480p",
               "720p",
               "1080p"
             ],
-            "description": "视频分辨率。样片模式（draft=true）仅支持 480p。1.5-pro 默认 720p，1.0-pro / 1.0-pro-fast 默认 1080p。"
-          },
-          "size": {
-            "type": "string",
-            "description": "与 resolution 相同，用于 OpenAI 兼容。"
+            "description": "对外公开的视频清晰度与计费档位。样片模式（draft=true）仅支持 480p。1.5-pro 默认 720p，1.0-pro / 1.0-pro-fast 默认 1080p。"
           },
           "ratio": {
             "type": "string",

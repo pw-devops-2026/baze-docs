@@ -25,7 +25,7 @@
     "/v1/videos": {
       "post": {
         "summary": "Seedance Video Generation",
-        "description": "For Seedance video models. After submission, query task status with `GET /v1/videos/{task_id}`.\n\nThe currently documented public workflows are text-to-video and first-frame image-to-video. This document covers `model`, `prompt`, `image`, `seconds`, `size`, `resolution`, `ratio`, `seed`, `camera_fixed`, `watermark`, `generate_audio`, `draft`, and `return_last_frame`.",
+        "description": "For Seedance video models. After submission, query task status with `GET /v1/videos/{task_id}`.\n\nThe currently documented public workflows are text-to-video and first-frame image-to-video. This document covers `model`, `prompt`, `image`, `seconds`, `size`, `ratio`, `seed`, `camera_fixed`, `watermark`, `generate_audio`, `draft`, and `return_last_frame`. `size` is the public output tier and billing field.",
         "operationId": "byteplusVideoGenerations",
         "tags": [
           "Seedance Video"
@@ -44,7 +44,7 @@
                     "model": "seedance-1-5-pro-251215",
                     "prompt": "A kitten running on grass, sunny day, camera following",
                     "seconds": 5,
-                    "resolution": "720p",
+                    "size": "720p",
                     "ratio": "16:9",
                     "generate_audio": true
                   }
@@ -56,7 +56,7 @@
                     "prompt": "Camera slowly pushing in, girl smiling",
                     "image": "https://example.com/first-frame.jpg",
                     "seconds": 5,
-                    "resolution": "720p",
+                    "size": "720p",
                     "ratio": "adaptive"
                   }
                 },
@@ -66,7 +66,7 @@
                     "model": "seedance-1-5-pro-251215",
                     "prompt": "Dog playing with ball",
                     "draft": true,
-                    "resolution": "480p"
+                    "size": "480p"
                   }
                 }
               }
@@ -294,18 +294,14 @@
             "maximum": 12,
             "default": 5
           },
-          "resolution": {
+          "size": {
             "type": "string",
             "enum": [
               "480p",
               "720p",
               "1080p"
             ],
-            "description": "Video resolution. Draft mode only supports 480p. 1.5-pro defaults to 720p, while 1.0-pro and 1.0-pro-fast default to 1080p."
-          },
-          "size": {
-            "type": "string",
-            "description": "Same as resolution, for OpenAI compatibility."
+            "description": "Public output size tier and billing field. Draft mode only supports 480p. 1.5-pro defaults to 720p, while 1.0-pro and 1.0-pro-fast default to 1080p."
           },
           "ratio": {
             "type": "string",
