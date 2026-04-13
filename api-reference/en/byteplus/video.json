@@ -43,7 +43,7 @@
                   "value": {
                     "model": "seedance-1-5-pro-251215",
                     "prompt": "A kitten running on grass, sunny day, camera following",
-                    "seconds": 5,
+                    "seconds": "5",
                     "size": "720p",
                     "ratio": "16:9",
                     "generate_audio": true
@@ -55,7 +55,7 @@
                     "model": "seedance-1-5-pro-251215",
                     "prompt": "Camera slowly pushing in, girl smiling",
                     "image": "https://example.com/first-frame.jpg",
-                    "seconds": 5,
+                    "seconds": "5",
                     "size": "720p",
                     "ratio": "adaptive"
                   }
@@ -288,11 +288,10 @@
             "description": "First-frame image URL or Base64-encoded input for first-frame image-to-video."
           },
           "seconds": {
-            "type": "integer",
-            "description": "Video duration in seconds. 1.5-pro supports 4-12 seconds or -1 (auto-select); other models support 2-12 seconds.",
-            "minimum": -1,
-            "maximum": 12,
-            "default": 5
+            "type": "string",
+            "description": "String form of the video duration in seconds. `seedance-1-5-pro-251215` accepts `\"-1\"` (auto-select) or `\"4\"` to `\"12\"`; other models accept `\"2\"` to `\"12\"`.",
+            "default": "5",
+            "example": "5"
           },
           "size": {
             "type": "string",

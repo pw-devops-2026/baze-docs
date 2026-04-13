@@ -43,7 +43,7 @@
                   "value": {
                     "model": "seedance-1-5-pro-251215",
                     "prompt": "一只小猫在草地上奔跑，阳光明媚，镜头跟随移动",
-                    "seconds": 5,
+                    "seconds": "5",
                     "size": "720p",
                     "ratio": "16:9",
                     "generate_audio": true
@@ -55,7 +55,7 @@
                     "model": "seedance-1-5-pro-251215",
                     "prompt": "镜头缓缓推进，女孩微笑",
                     "image": "https://example.com/first-frame.jpg",
-                    "seconds": 5,
+                    "seconds": "5",
                     "size": "720p",
                     "ratio": "adaptive"
                   }
@@ -288,11 +288,10 @@
             "description": "首帧图片 URL 或 Base64 编码。用于首帧图生视频场景。"
           },
           "seconds": {
-            "type": "integer",
-            "description": "视频生成时长（秒）。1.5-pro 支持 4-12 秒整数或 -1（自动选择）；其他模型支持 2-12 秒。",
-            "minimum": -1,
-            "maximum": 12,
-            "default": 5
+            "type": "string",
+            "description": "视频生成时长（秒）的字符串形式。`seedance-1-5-pro-251215` 支持 `\"-1\"`（自动选择）或 `\"4\"` 到 `\"12\"`；其他模型支持 `\"2\"` 到 `\"12\"`。",
+            "default": "5",
+            "example": "5"
           },
           "size": {
             "type": "string",
