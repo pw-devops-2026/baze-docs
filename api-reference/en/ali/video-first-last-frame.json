@@ -25,7 +25,7 @@
     "/v1/videos": {
       "post": {
         "summary": "Wan First-and-Last-Frame to Video",
-        "description": "For Wan first-and-last-frame video models. After submission, query task status with `GET /v1/videos/{task_id}`.\n\nPublic fields: `model`, `image`, `last_frame_url`, `prompt`, `seconds`, `size`, `prompt_extend`, `watermark`, `seed`, and `negative_prompt`. The first frame sets the base composition, and the last frame guides the ending shot.",
+        "description": "For Wan first-and-last-frame video models. After submission, query task status with `GET /v1/videos/{task_id}`.\n\nPublic fields: `model`, `images`, `prompt`, `seconds`, `size`, `prompt_extend`, `watermark`, `seed`, and `negative_prompt`. `images` must contain exactly 2 items in order: `images[0]` is the first frame and `images[1]` is the last frame. The first frame sets the base composition, and the last frame guides the ending shot.",
         "operationId": "aliFirstLastFrameToVideo",
         "tags": [
           "Wan Video"
@@ -42,8 +42,10 @@
                   "summary": "First and last frame to video",
                   "value": {
                     "model": "wan2.2-kf2v-flash",
-                    "image": "https://example.com/first-frame.png",
-                    "last_frame_url": "https://example.com/last-frame.png",
+                    "images": [
+                      "https://example.com/first-frame.png",
+                      "https://example.com/last-frame.png"
+                    ],
                     "prompt": "Realistic style, a black kitten curiously looking at the sky, camera moving up from eye level to top-down",
                     "seconds": "5",
                     "size": "720P",
@@ -54,8 +56,10 @@
                   "summary": "With negative prompt",
                   "value": {
                     "model": "wan2.1-kf2v-plus",
-                    "image": "https://example.com/first-frame.png",
-                    "last_frame_url": "https://example.com/last-frame.png",
+                    "images": [
+                      "https://example.com/first-frame.png",
+                      "https://example.com/last-frame.png"
+                    ],
                     "prompt": "Cat running from grass to garden",
                     "negative_prompt": "people",
                     "size": "720P",
@@ -436,8 +440,7 @@
         "type": "object",
         "required": [
           "model",
-          "image",
-          "last_frame_url"
+          "images"
         ],
         "properties": {
           "model": {
@@ -448,13 +451,14 @@
             ],
             "description": "Wanxiang first-and-last-frame-to-video model."
           },
-          "image": {
-            "type": "string",
-            "description": "First frame image URL. Output video aspect ratio matches first frame."
-          },
-          "last_frame_url": {
-            "type": "string",
-            "description": "Last frame image URL. Will be cropped to match first frame's aspect ratio."
+          "images": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of first-frame and last-frame image URLs. Exactly 2 items are required in order: `images[0]` is the first frame and `images[1]` is the last frame. Output video aspect ratio follows the first frame, and the last frame is cropped to match it."
           },
           "prompt": {
             "type": "string",
