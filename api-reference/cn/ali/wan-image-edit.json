@@ -3,7 +3,7 @@
   "info": {
     "title": "Wan 图像编辑",
     "version": "1.0.0",
-    "description": "阿里 Wan 图像编辑能力文档。公开统一入口为 `/v1/images/edits`，当前文档仅描述当前 Ali 白名单内已实现的 `wan2.7-image-pro` 官方图像编辑字段。",
+    "description": "阿里 Wan 图像编辑能力文档。公开统一入口为 `/v1/images/edits`，当前文档描述 `wan2.7-image-pro` 对外公开的网关契约：保留 `input.messages[].content[]` 承载图片与文本指令，其余控制字段使用顶层 OpenAI 风格字段，由网关映射到上游 `parameters`。",
     "license": {
       "name": "Project License",
       "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
@@ -25,7 +25,7 @@
     "/v1/images/edits": {
       "post": {
         "summary": "Wan 图像编辑",
-        "description": "调用 Ali `wan2.7-image-pro` 执行图像编辑。\n\n稳定公开调用方案仅包含官方 JSON 结构：顶层 `model`、`input`、`parameters`、`response_format`。输入图片位于 `input.messages[0].content[].image`，编辑指令位于同一数组中的 `text`。",
+        "description": "调用 Ali `wan2.7-image-pro` 执行图像编辑。\n\n公开调用方案保留顶层 `model`、`input`、`response_format`，并将 `size`、`n`、`watermark`、`negative_prompt`、`seed`、`bbox_list` 设计为顶层字段。输入图片位于 `input.messages[0].content[].image`，编辑指令位于同一数组中的 `text`。请求体不接受顶层 `parameters`。",
         "operationId": "aliWanImageEdit",
         "tags": [
           "Wan Image"
@@ -61,13 +61,11 @@
                         }
                       ]
                     },
-                    "parameters": {
-                      "size": "2K",
-                      "n": 1,
-                      "watermark": false,
-                      "negative_prompt": "保留原车身颜色",
-                      "seed": 0
-                    }
+                    "size": "2K",
+                    "n": 1,
+                    "watermark": false,
+                    "negative_prompt": "保留原车身颜色",
+                    "seed": 0
                   }
                 },
                 "interactive_edit": {
@@ -93,22 +91,20 @@
                         }
                       ]
                     },
-                    "parameters": {
-                      "bbox_list": [
-                        [],
+                    "bbox_list": [
+                      [],
+                      [
                         [
-                          [
-                            989,
-                            515,
-                            1138,
-                            681
-                          ]
+                          989,
+                          515,
+                          1138,
+                          681
                         ]
-                      ],
-                      "size": "2K",
-                      "n": 1,
-                      "watermark": false
-                    }
+                      ]
+                    ],
+                    "size": "2K",
+                    "n": 1,
+                    "watermark": false
                   }
                 }
               }
@@ -240,8 +236,40 @@
           "input": {
             "$ref": "#/components/schemas/WanImageInput"
           },
-          "parameters": {
-            "$ref": "#/components/schemas/WanImageParameters"
+          "size": {
+            "type": "string",
+            "description": "输出图像分辨率。图像编辑场景建议使用官方规格如 `1K`、`2K`。网关会映射到上游 `parameters.size`。"
+          },
+          "n": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4,
+            "description": "生成图像数量。网关会映射到上游 `parameters.n`。"
+          },
+          "watermark": {
+            "type": "boolean",
+            "description": "是否添加水印。网关会映射到上游 `parameters.watermark`。"
+          },
+          "negative_prompt": {
+            "type": "string",
+            "description": "反向提示词。网关会映射到上游 `parameters.negative_prompt`。"
+          },
+          "seed": {
+            "type": "integer",
+            "description": "随机数种子，取值范围 [0, 2147483647]。网关会映射到上游 `parameters.seed`。"
+          },
+          "bbox_list": {
+            "type": "array",
+            "description": "交互式编辑框选区域，按输入图片顺序对应。网关会映射到上游 `parameters.bbox_list`。",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         }
       },

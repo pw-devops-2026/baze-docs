@@ -3,7 +3,7 @@
   "info": {
     "title": "Wan Image Editing",
     "version": "1.0.0",
-    "description": "Ali Wan image editing capability document. The public unified endpoint is `/v1/images/edits`. This document describes only the currently whitelisted and implemented official image editing fields for `wan2.7-image-pro`.",
+    "description": "Ali Wan image editing capability document. The public unified endpoint is `/v1/images/edits`. This document describes the gateway public contract for `wan2.7-image-pro`: keep `input.messages[].content[]` for image and text content, and expose the remaining control options as top-level OpenAI-style fields that the gateway maps to upstream `parameters`.",
     "license": {
       "name": "Project License",
       "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
@@ -25,7 +25,7 @@
     "/v1/images/edits": {
       "post": {
         "summary": "Wan Image Editing",
-        "description": "Call Ali `wan2.7-image-pro` for image editing.\n\nThe stable public contract uses only the official JSON structure: top-level `model`, `input`, `parameters`, and `response_format`. Input images are provided in `input.messages[0].content[].image`, and the edit instruction is the `text` item in the same content array.",
+        "description": "Call Ali `wan2.7-image-pro` for image editing.\n\nThe public contract keeps top-level `model`, `input`, and `response_format`, while exposing `size`, `n`, `watermark`, `negative_prompt`, `seed`, and `bbox_list` as top-level fields. Input images are provided in `input.messages[0].content[].image`, and the edit instruction is the `text` item in the same content array. Top-level `parameters` is not accepted.",
         "operationId": "aliWanImageEdit",
         "tags": [
           "Wan Image"
@@ -61,13 +61,11 @@
                         }
                       ]
                     },
-                    "parameters": {
-                      "size": "2K",
-                      "n": 1,
-                      "watermark": false,
-                      "negative_prompt": "keep the original body color",
-                      "seed": 0
-                    }
+                    "size": "2K",
+                    "n": 1,
+                    "watermark": false,
+                    "negative_prompt": "keep the original body color",
+                    "seed": 0
                   }
                 },
                 "interactive_edit": {
@@ -93,22 +91,20 @@
                         }
                       ]
                     },
-                    "parameters": {
-                      "bbox_list": [
-                        [],
+                    "bbox_list": [
+                      [],
+                      [
                         [
-                          [
-                            989,
-                            515,
-                            1138,
-                            681
-                          ]
+                          989,
+                          515,
+                          1138,
+                          681
                         ]
-                      ],
-                      "size": "2K",
-                      "n": 1,
-                      "watermark": false
-                    }
+                      ]
+                    ],
+                    "size": "2K",
+                    "n": 1,
+                    "watermark": false
                   }
                 }
               }
@@ -240,8 +236,40 @@
           "input": {
             "$ref": "#/components/schemas/WanImageInput"
           },
-          "parameters": {
-            "$ref": "#/components/schemas/WanImageParameters"
+          "size": {
+            "type": "string",
+            "description": "Output image resolution. For image editing, the official presets such as `1K` and `2K` are recommended. The gateway maps it to upstream `parameters.size`."
+          },
+          "n": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4,
+            "description": "Number of generated images. The gateway maps it to upstream `parameters.n`."
+          },
+          "watermark": {
+            "type": "boolean",
+            "description": "Whether to add watermark. The gateway maps it to upstream `parameters.watermark`."
+          },
+          "negative_prompt": {
+            "type": "string",
+            "description": "Negative prompt. The gateway maps it to upstream `parameters.negative_prompt`."
+          },
+          "seed": {
+            "type": "integer",
+            "description": "Random seed in the range [0, 2147483647]. The gateway maps it to upstream `parameters.seed`."
+          },
+          "bbox_list": {
+            "type": "array",
+            "description": "Interactive edit bounding boxes aligned with the input image order. The gateway maps it to upstream `parameters.bbox_list`.",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         }
       },

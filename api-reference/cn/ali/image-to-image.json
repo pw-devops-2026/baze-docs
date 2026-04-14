@@ -3,7 +3,7 @@
   "info": {
     "title": "Qwen 图像编辑",
     "version": "1.0.0",
-    "description": "阿里 Qwen 图像编辑能力文档。公开统一入口为 `/v1/images/edits`，当前文档仅描述 `qwen-image-2.0-pro` 已实现且与官方一致的 JSON 字段。",
+    "description": "阿里 Qwen 图像编辑能力文档。公开统一入口为 `/v1/images/edits`，当前文档描述 `qwen-image-2.0-pro` 对外公开的网关契约：保留 `input.messages[].content[]` 承载图片与文本指令，其余控制字段使用顶层 OpenAI 风格字段，由网关映射到上游 `parameters`。",
     "license": {
       "name": "Project License",
       "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
@@ -25,7 +25,7 @@
     "/v1/images/edits": {
       "post": {
         "summary": "Qwen 图像编辑",
-        "description": "调用 Ali `qwen-image-2.0-pro` 执行单图编辑或多图融合。\n\n稳定公开调用方案仅包含官方 JSON 结构：顶层 `model`、`input`、`parameters`、`response_format`。输入图片位于 `input.messages[0].content[].image`，编辑指令位于同一数组中的 `text`。",
+        "description": "调用 Ali `qwen-image-2.0-pro` 执行单图编辑或多图融合。\n\n公开调用方案保留顶层 `model`、`input`、`response_format`，并将 `n`、`size`、`watermark`、`prompt_extend`、`negative_prompt`、`seed` 设计为顶层字段。输入图片位于 `input.messages[0].content[].image`，编辑指令位于同一数组中的 `text`。请求体不接受顶层 `parameters`。",
         "operationId": "aliQwenImageEdit",
         "tags": [
           "Qwen Image"
@@ -58,14 +58,12 @@
                         }
                       ]
                     },
-                    "parameters": {
-                      "n": 2,
-                      "size": "1536*1024",
-                      "watermark": false,
-                      "prompt_extend": true,
-                      "negative_prompt": "低质量",
-                      "seed": 0
-                    }
+                    "n": 2,
+                    "size": "1536*1024",
+                    "watermark": false,
+                    "prompt_extend": true,
+                    "negative_prompt": "低质量",
+                    "seed": 0
                   }
                 },
                 "multi_image_fusion": {
@@ -94,13 +92,11 @@
                         }
                       ]
                     },
-                    "parameters": {
-                      "n": 2,
-                      "size": "1024*1536",
-                      "watermark": false,
-                      "prompt_extend": true,
-                      "negative_prompt": "低分辨率"
-                    }
+                    "n": 2,
+                    "size": "1024*1536",
+                    "watermark": false,
+                    "prompt_extend": true,
+                    "negative_prompt": "低分辨率"
                   }
                 }
               }
@@ -232,8 +228,32 @@
           "input": {
             "$ref": "#/components/schemas/QwenImageInput"
           },
-          "parameters": {
-            "$ref": "#/components/schemas/QwenImageParameters"
+          "n": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 6,
+            "description": "生成图像数量。网关会映射到上游 `parameters.n`。"
+          },
+          "size": {
+            "type": "string",
+            "description": "输出图像分辨率，格式为 `宽x高` 或 `宽*高`。网关会转换并映射到上游 `parameters.size`。"
+          },
+          "watermark": {
+            "type": "boolean",
+            "description": "是否添加水印。网关会映射到上游 `parameters.watermark`。"
+          },
+          "prompt_extend": {
+            "type": "boolean",
+            "description": "是否开启提示词智能改写。网关会映射到上游 `parameters.prompt_extend`。"
+          },
+          "negative_prompt": {
+            "type": "string",
+            "description": "反向提示词。网关会映射到上游 `parameters.negative_prompt`。"
+          },
+          "seed": {
+            "type": "integer",
+            "format": "int64",
+            "description": "随机种子。显式传 `0` 会保留并映射到上游 `parameters.seed`。"
           }
         }
       },

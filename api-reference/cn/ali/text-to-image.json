@@ -3,7 +3,7 @@
   "info": {
     "title": "Qwen 文生图",
     "version": "1.0.0",
-    "description": "阿里 Qwen 文生图能力文档。公开统一入口为 `/v1/images/generations`，当前文档仅描述 `qwen-image-2.0-pro` 已实现且与官方一致的 JSON 字段。",
+    "description": "阿里 Qwen 文生图能力文档。公开统一入口为 `/v1/images/generations`，当前文档描述 `qwen-image-2.0-pro` 对外公开的网关契约：保留 `input.messages[].content[].text` 承载提示词，其余控制字段使用顶层 OpenAI 风格字段，由网关映射到上游 `parameters`。",
     "license": {
       "name": "Project License",
       "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
@@ -25,7 +25,7 @@
     "/v1/images/generations": {
       "post": {
         "summary": "Qwen 文生图",
-        "description": "调用 Ali `qwen-image-2.0-pro` 执行文生图。\n\n稳定公开调用方案仅包含官方 JSON 结构：顶层 `model`、`input`、`parameters`、`response_format`。提示词位于 `input.messages[0].content[0].text`。",
+        "description": "调用 Ali `qwen-image-2.0-pro` 执行文生图。\n\n公开调用方案保留顶层 `model`、`input`、`response_format`，并将 `n`、`size`、`negative_prompt`、`prompt_extend`、`watermark`、`seed` 设计为顶层字段。提示词位于 `input.messages[0].content[0].text`。请求体不接受顶层 `parameters`。",
         "operationId": "aliQwenTextToImage",
         "tags": [
           "Qwen Image"
@@ -55,11 +55,9 @@
                         }
                       ]
                     },
-                    "parameters": {
-                      "size": "2048*2048",
-                      "n": 1,
-                      "watermark": false
-                    }
+                    "size": "2048*2048",
+                    "n": 1,
+                    "watermark": false
                   }
                 },
                 "advanced_generation": {
@@ -79,14 +77,12 @@
                         }
                       ]
                     },
-                    "parameters": {
-                      "size": "2048*1024",
-                      "n": 2,
-                      "negative_prompt": "低分辨率，低画质，模糊",
-                      "prompt_extend": true,
-                      "watermark": false,
-                      "seed": 0
-                    }
+                    "size": "2048*1024",
+                    "n": 2,
+                    "negative_prompt": "低分辨率，低画质，模糊",
+                    "prompt_extend": true,
+                    "watermark": false,
+                    "seed": 0
                   }
                 }
               }
@@ -218,8 +214,32 @@
           "input": {
             "$ref": "#/components/schemas/QwenTextToImageInput"
           },
-          "parameters": {
-            "$ref": "#/components/schemas/QwenTextToImageParameters"
+          "n": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 6,
+            "description": "输出图像数量。网关会映射到上游 `parameters.n`。"
+          },
+          "size": {
+            "type": "string",
+            "description": "输出图像分辨率，格式为 `宽x高` 或 `宽*高`。网关会转换并映射到上游 `parameters.size`。"
+          },
+          "negative_prompt": {
+            "type": "string",
+            "description": "反向提示词。网关会映射到上游 `parameters.negative_prompt`。"
+          },
+          "prompt_extend": {
+            "type": "boolean",
+            "description": "是否开启提示词智能改写。网关会映射到上游 `parameters.prompt_extend`。"
+          },
+          "watermark": {
+            "type": "boolean",
+            "description": "是否添加水印。显式传 `false` 会保留并映射到上游 `parameters.watermark`。"
+          },
+          "seed": {
+            "type": "integer",
+            "format": "int64",
+            "description": "随机种子。显式传 `0` 会保留并映射到上游 `parameters.seed`。"
           }
         }
       },

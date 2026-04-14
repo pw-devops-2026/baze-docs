@@ -3,7 +3,7 @@
   "info": {
     "title": "Wan 文生图",
     "version": "1.0.0",
-    "description": "阿里 Wan 文生图能力文档。公开统一入口为 `/v1/images/generations`，当前文档仅描述当前 Ali 白名单内已实现的 `wan2.7-image-pro` 官方文生图字段。",
+    "description": "阿里 Wan 文生图能力文档。公开统一入口为 `/v1/images/generations`，当前文档描述 `wan2.7-image-pro` 对外公开的网关契约：保留 `input.messages[].content[].text` 承载提示词，其余控制字段使用顶层 OpenAI 风格字段，由网关映射到上游 `parameters`。",
     "license": {
       "name": "Project License",
       "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
@@ -25,7 +25,7 @@
     "/v1/images/generations": {
       "post": {
         "summary": "Wan 文生图",
-        "description": "调用 Ali `wan2.7-image-pro` 执行文生图。\n\n稳定公开调用方案仅包含官方 JSON 结构：顶层 `model`、`input`、`parameters`、`response_format`。提示词位于 `input.messages[0].content[0].text`。",
+        "description": "调用 Ali `wan2.7-image-pro` 执行文生图。\n\n公开调用方案保留顶层 `model`、`input`、`response_format`，并将 `size`、`n`、`watermark`、`thinking_mode`、`enable_sequential`、`color_palette`、`seed` 设计为顶层字段。提示词位于 `input.messages[0].content[0].text`。请求体不接受顶层 `parameters`。",
         "operationId": "aliWanTextToImage",
         "tags": [
           "Wan Image"
@@ -55,13 +55,11 @@
                         }
                       ]
                     },
-                    "parameters": {
-                      "size": "2K",
-                      "n": 1,
-                      "watermark": false,
-                      "thinking_mode": true,
-                      "seed": 0
-                    }
+                    "size": "2K",
+                    "n": 1,
+                    "watermark": false,
+                    "thinking_mode": true,
+                    "seed": 0
                   }
                 },
                 "sequential_generation": {
@@ -81,25 +79,23 @@
                         }
                       ]
                     },
-                    "parameters": {
-                      "enable_sequential": true,
-                      "n": 4,
-                      "size": "2K",
-                      "color_palette": [
-                        {
-                          "hex": "#C2D1E6",
-                          "ratio": "23.51%"
-                        },
-                        {
-                          "hex": "#CDD8E9",
-                          "ratio": "20.13%"
-                        },
-                        {
-                          "hex": "#B5C8DB",
-                          "ratio": "15.88%"
-                        }
-                      ]
-                    }
+                    "enable_sequential": true,
+                    "n": 4,
+                    "size": "2K",
+                    "color_palette": [
+                      {
+                        "hex": "#C2D1E6",
+                        "ratio": "23.51%"
+                      },
+                      {
+                        "hex": "#CDD8E9",
+                        "ratio": "20.13%"
+                      },
+                      {
+                        "hex": "#B5C8DB",
+                        "ratio": "15.88%"
+                      }
+                    ]
                   }
                 }
               }
@@ -231,8 +227,39 @@
           "input": {
             "$ref": "#/components/schemas/WanTextToImageInput"
           },
-          "parameters": {
-            "$ref": "#/components/schemas/WanTextToImageParameters"
+          "size": {
+            "type": "string",
+            "description": "输出图片分辨率规格，例如 `1K`、`2K`、`4K`，或显式宽高像素值。网关会映射到上游 `parameters.size`。"
+          },
+          "n": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12,
+            "description": "输出图片数量。关闭组图模式时范围为 1-4，开启组图模式时范围为 1-12。网关会映射到上游 `parameters.n`。"
+          },
+          "watermark": {
+            "type": "boolean",
+            "description": "是否添加水印。显式传 `false` 会保留并映射到上游 `parameters.watermark`。"
+          },
+          "thinking_mode": {
+            "type": "boolean",
+            "description": "是否开启思考模式。网关会映射到上游 `parameters.thinking_mode`。"
+          },
+          "enable_sequential": {
+            "type": "boolean",
+            "description": "是否开启组图输出模式。网关会映射到上游 `parameters.enable_sequential`。"
+          },
+          "color_palette": {
+            "type": "array",
+            "description": "自定义颜色主题。网关会映射到上游 `parameters.color_palette`。",
+            "items": {
+              "$ref": "#/components/schemas/WanColorPaletteItem"
+            }
+          },
+          "seed": {
+            "type": "integer",
+            "format": "int64",
+            "description": "随机种子。显式传 `0` 会保留并映射到上游 `parameters.seed`。"
           }
         }
       },
