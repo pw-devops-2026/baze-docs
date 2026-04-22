@@ -21,50 +21,6 @@
                 "expanded": true,
                 "pages": [
                   {
-                    "group": "MiniMax",
-                    "pages": [
-                      "cn/minimax/chat",
-                      "cn/minimax/audio",
-                      "cn/minimax/text-to-image",
-                      "cn/minimax/image-to-image",
-                      "cn/minimax/text-to-video",
-                      "cn/minimax/image-to-video",
-                      "cn/minimax/start-end-to-video",
-                      "cn/minimax/query-video-status",
-                      "cn/minimax/download-video-file"
-                    ]
-                  },
-                  {
-                    "group": "阿里巴巴",
-                    "pages": [
-                      "cn/ali/chat",
-                      "cn/ali/audio",
-                      "cn/ali/text-to-image",
-                      "cn/ali/wan-text-to-image",
-                      "cn/ali/image-to-image",
-                      "cn/ali/wan-image-edit",
-                      "cn/ali/text-to-video",
-                      "cn/ali/wan2.7-i2v",
-                      "cn/ali/video-first-last-frame",
-                      "cn/ali/reference-to-video"
-                    ]
-                  },
-                  {
-                    "group": "字节",
-                    "pages": [
-                      "cn/byteplus/chat",
-                      "cn/byteplus/image",
-                      "cn/byteplus/video",
-                      "cn/byteplus/video-status"
-                    ]
-                  },
-                  {
-                    "group": "智谱",
-                    "pages": [
-                      "cn/zhipu/chat"
-                    ]
-                  },
-                  {
                     "group": "图像模型",
                     "pages": [
                       {
