@@ -58,7 +58,7 @@
                         "pages": [
                           "cn/zmodelVideo/minimax/image-to-video",
                           "cn/zmodelVideo/minimax/start-end-to-video",
-                          "cn/zmodelVideo/minimax/text-to-image"
+                          "cn/zmodelVideo/minimax/text-to-video"
                         ]
                       },
                       {
