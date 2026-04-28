@@ -331,6 +331,11 @@
       "vscode"
     ]
   },
+  "api": {
+    "playground": {
+      "display": "simple"
+    }
+  },
   "footer": {
     "socials": {
       "x": "https://x.com/mintlify",
