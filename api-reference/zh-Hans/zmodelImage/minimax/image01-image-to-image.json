@@ -46,7 +46,7 @@
                     "subject_reference": [
                       {
                         "type": "character",
-                        "image_file": "https://example.com/reference.png"
+                        "url": "https://example.com/reference.png"
                       }
                     ],
                     "response_format": "url",
@@ -323,14 +323,14 @@
         "type": "object",
         "required": [
           "type",
-          "image_file"
+          "url"
         ],
         "properties": {
           "type": {
             "type": "string",
             "description": "主体类型。当前仅支持 `character`。"
           },
-          "image_file": {
+          "url": {
             "type": "string",
             "description": "参考图片 URL 或 Data URL。"
           }

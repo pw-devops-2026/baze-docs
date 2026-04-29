@@ -46,7 +46,7 @@
                     "subject_reference": [
                       {
                         "type": "character",
-                        "image_file": "https://example.com/reference.png"
+                        "url": "https://example.com/reference.png"
                       }
                     ],
                     "response_format": "url",
@@ -323,14 +323,14 @@
         "type": "object",
         "required": [
           "type",
-          "image_file"
+          "url"
         ],
         "properties": {
           "type": {
             "type": "string",
             "description": "Subject type. Currently only `character` is supported."
           },
-          "image_file": {
+          "url": {
             "type": "string",
             "description": "Reference image URL or Data URL."
           }
