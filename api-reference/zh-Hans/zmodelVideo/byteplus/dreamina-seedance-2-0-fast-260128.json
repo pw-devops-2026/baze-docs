@@ -25,7 +25,7 @@
     "/v1/videos": {
       "post": {
         "summary": "Seedance 2.0 Fast 视频生成",
-        "description": "适用于 Dreamina Seedance 2.0 Fast 模型。提交任务后，请通过 `GET /v1/videos/{task_id}` 查询状态。\n\n当前支持文生视频、首帧图生视频、多模态参考生视频。支持 `seconds`、`size`、`ratio`、`seed`、`watermark`、`generate_audio`、`return_last_frame`、`safety_identifier` 等字段。",
+        "description": "dreamina-seedance-2-0-fast-260128\n\n适用于 Dreamina Seedance 2.0 Fast 模型。提交任务后，请通过 `GET /v1/videos/{task_id}` 查询状态。\n\n当前支持文生视频、首帧图生视频、多模态参考生视频。支持 `seconds`、`size`、`ratio`、`seed`、`watermark`、`generate_audio`、`return_last_frame`、`safety_identifier` 等字段。",
         "operationId": "seedance20FastGenerations",
         "tags": [
           "Seedance Video"

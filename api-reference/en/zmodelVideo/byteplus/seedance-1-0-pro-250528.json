@@ -25,7 +25,7 @@
     "/v1/videos": {
       "post": {
         "summary": "Seedance 1.0 Pro Video Generation",
-        "description": "Applicable to Seedance 1.0 Pro models. After submitting a task, please query the status via `GET /v1/videos/{task_id}`.\n\nCurrently supports Text-to-Video and first-frame Image-to-Video. Supports fields such as `seconds`, `size`, `ratio`, `seed`, `camera_fixed`, `watermark`, `return_last_frame`.",
+        "description": "seedance-1-0-pro-250528 \n\n Applicable to Seedance 1.0 Pro models. After submitting a task, please query the status via `GET /v1/videos/{task_id}`.\n\nCurrently supports Text-to-Video and first-frame Image-to-Video. Supports fields such as `seconds`, `size`, `ratio`, `seed`, `camera_fixed`, `watermark`, `return_last_frame`.",
         "operationId": "seedance10ProGenerations",
         "tags": [
           "Seedance Video"

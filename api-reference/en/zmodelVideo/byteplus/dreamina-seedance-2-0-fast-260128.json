@@ -25,7 +25,7 @@
     "/v1/videos": {
       "post": {
         "summary": "Seedance 2.0 Fast Video Generation",
-        "description": "Applicable to Dreamina Seedance 2.0 Fast models. After submitting a task, please query the status via `GET /v1/videos/{task_id}`.\n\nCurrently supports Text-to-Video, first-frame Image-to-Video, and multimodal reference video generation. Supports fields such as `seconds`, `size`, `ratio`, `seed`, `watermark`, `generate_audio`, `return_last_frame`, `safety_identifier`.",
+        "description": "dreamina-seedance-2-0-fast-260128\n\nApplicable to Dreamina Seedance 2.0 Fast models. After submitting a task, please query the status via `GET /v1/videos/{task_id}`.\n\nCurrently supports Text-to-Video, first-frame Image-to-Video, and multimodal reference video generation. Supports fields such as `seconds`, `size`, `ratio`, `seed`, `watermark`, `generate_audio`, `return_last_frame`, `safety_identifier`.",
         "operationId": "seedance20FastGenerations",
         "tags": [
           "Seedance Video"
