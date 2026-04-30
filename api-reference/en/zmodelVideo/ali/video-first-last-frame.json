@@ -446,8 +446,7 @@
           "model": {
             "type": "string",
             "enum": [
-              "wan2.2-kf2v-flash",
-              "wan2.1-kf2v-plus"
+              "wan2.2-kf2v-flash"
             ],
             "description": "Wan first-last-frame image-to-video model."
           },

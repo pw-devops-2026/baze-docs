@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "wan2.2-kf2v-flash 首尾帧图生视频",
+    "title": "wan2.1-kf2v-plus 首尾帧图生视频",
     "version": "1.0.0",
     "description": "Wan 系列首尾帧图生视频能力文档。公开统一入口为 `/v1/videos`，用于创建异步视频生成任务。",
     "license": {
@@ -24,8 +24,8 @@
   "paths": {
     "/v1/videos": {
       "post": {
-        "summary": "wan2.2-kf2v-flash 首尾帧图生视频",
-        "description": "wan2.2-kf2v-flash \n\n适用于 Wan 系列首尾帧图生视频模型。提交任务后，请通过 `GET /v1/videos/{task_id}` 查询状态。\n\n公开字段：`model`、`images`、`prompt`、`seconds`、`size`、`prompt_extend`、`watermark`、`seed`、`negative_prompt`。其中 `images` 必须按顺序传入 2 张图：`images[0]` 为首帧，`images[1]` 为尾帧。首帧决定基础构图，尾帧用于控制收束画面。",
+        "summary": "wan2.1-kf2v-plus 首尾帧图生视频",
+        "description": "wan2.1-kf2v-plus \n\n适用于 Wan 系列首尾帧图生视频模型。提交任务后，请通过 `GET /v1/videos/{task_id}` 查询状态。\n\n公开字段：`model`、`images`、`prompt`、`seconds`、`size`、`prompt_extend`、`watermark`、`seed`、`negative_prompt`。其中 `images` 必须按顺序传入 2 张图：`images[0]` 为首帧，`images[1]` 为尾帧。首帧决定基础构图，尾帧用于控制收束画面。",
         "operationId": "aliFirstLastFrameToVideo",
         "tags": [
           "Wan Video"
@@ -41,7 +41,7 @@
                 "first_last_frame_video": {
                   "summary": "首尾帧图生视频",
                   "value": {
-                    "model": "wan2.2-kf2v-flash",
+                    "model": "wan2.1-kf2v-plus",
                     "images": [
                       "https://example.com/first-frame.png",
                       "https://example.com/last-frame.png"
@@ -55,7 +55,7 @@
                 "with_negative_prompt": {
                   "summary": "使用反向提示词",
                   "value": {
-                    "model": "wan2.2-kf2v-flash",
+                    "model": "wan2.1-kf2v-plus",
                     "images": [
                       "https://example.com/first-frame.png",
                       "https://example.com/last-frame.png"
@@ -446,7 +446,7 @@
           "model": {
             "type": "string",
             "enum": [
-              "wan2.2-kf2v-flash"
+              "wan2.1-kf2v-plus"
             ],
             "description": "万相首尾帧图生视频模型。"
           },

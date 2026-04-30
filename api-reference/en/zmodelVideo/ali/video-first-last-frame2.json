@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "wan2.2-kf2v-flash 首尾帧图生视频",
+    "title": "Wan first-last-frame image-to-video",
     "version": "1.0.0",
-    "description": "Wan 系列首尾帧图生视频能力文档。公开统一入口为 `/v1/videos`，用于创建异步视频生成任务。",
+    "description": "Wan series first-last-frame image-to-video capability documentation. The unified API endpoint is `/v1/videos`, used to create asynchronous video generation tasks.",
     "license": {
       "name": "Project License",
       "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
@@ -12,20 +12,20 @@
   "servers": [
     {
       "url": "https://baze-api.powerbuyin.top",
-      "description": "Baze API 服务地址"
+      "description": "Baze API server endpoint"
     }
   ],
   "tags": [
     {
       "name": "Wan Video",
-      "description": "Wan 系列首尾帧视频能力"
+      "description": "Wan first-last-frame video capability"
     }
   ],
   "paths": {
     "/v1/videos": {
       "post": {
-        "summary": "wan2.2-kf2v-flash 首尾帧图生视频",
-        "description": "wan2.2-kf2v-flash \n\n适用于 Wan 系列首尾帧图生视频模型。提交任务后，请通过 `GET /v1/videos/{task_id}` 查询状态。\n\n公开字段：`model`、`images`、`prompt`、`seconds`、`size`、`prompt_extend`、`watermark`、`seed`、`negative_prompt`。其中 `images` 必须按顺序传入 2 张图：`images[0]` 为首帧，`images[1]` 为尾帧。首帧决定基础构图，尾帧用于控制收束画面。",
+        "summary": "Wan first-last-frame image-to-video",
+        "description": "wan2.1-kf2v-plus \n\n Applies to Wan series first-last-frame image-to-video models. After submitting a task, query its status via `GET /v1/videos/{task_id}`.\n\nPublic fields: `model`, `images`, `prompt`, `seconds`, `size`, `prompt_extend`, `watermark`, `seed`, `negative_prompt`. The `images` array must contain exactly 2 images in order: `images[0]` is the first frame, `images[1]` is the last frame. The first frame determines the base composition, and the last frame controls the closing scene.",
         "operationId": "aliFirstLastFrameToVideo",
         "tags": [
           "Wan Video"
@@ -39,29 +39,29 @@
               },
               "examples": {
                 "first_last_frame_video": {
-                  "summary": "首尾帧图生视频",
+                  "summary": "First-last-frame image-to-video",
                   "value": {
-                    "model": "wan2.2-kf2v-flash",
+                    "model": "wan2.1-kf2v-plus",
                     "images": [
                       "https://example.com/first-frame.png",
                       "https://example.com/last-frame.png"
                     ],
-                    "prompt": "写实风格，一只黑色小猫好奇地看向天空，镜头从平视逐渐上升，最后俯拍它的好奇的眼神。",
+                    "prompt": "Realistic style, a black kitten curiously looks up at the sky, the camera gradually rises from eye level, ending with a top-down shot of its curious eyes.",
                     "seconds": "5",
                     "size": "720P",
                     "prompt_extend": true
                   }
                 },
                 "with_negative_prompt": {
-                  "summary": "使用反向提示词",
+                  "summary": "With negative prompt",
                   "value": {
-                    "model": "wan2.2-kf2v-flash",
+                    "model": "wan2.1-kf2v-plus",
                     "images": [
                       "https://example.com/first-frame.png",
                       "https://example.com/last-frame.png"
                     ],
-                    "prompt": "写实风格，小猫从草地跑向花园",
-                    "negative_prompt": "人物",
+                    "prompt": "Realistic style, a kitten runs from the grass to the garden",
+                    "negative_prompt": "human figures",
                     "size": "720P",
                     "prompt_extend": true
                   }
@@ -72,7 +72,7 @@
         },
         "responses": {
           "200": {
-            "description": "提交成功，返回视频任务对象。",
+            "description": "Submitted successfully. Returns a video task object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -82,7 +82,7 @@
             }
           },
           "400": {
-            "description": "请求参数不合法。",
+            "description": "Invalid request parameters.",
             "content": {
               "application/json": {
                 "schema": {
@@ -90,10 +90,10 @@
                 },
                 "examples": {
                   "invalid_request": {
-                    "summary": "参数错误",
+                    "summary": "Parameter error",
                     "value": {
                       "error": {
-                        "message": "请求体格式错误或字段取值非法",
+                        "message": "Malformed request body or invalid field value",
                         "type": "invalid_request_error",
                         "code": "bad_request_body",
                         "param": ""
@@ -112,10 +112,10 @@
                 },
                 "examples": {
                   "unauthorized": {
-                    "summary": "未授权",
+                    "summary": "Unauthorized",
                     "value": {
                       "error": {
-                        "message": "无效的令牌",
+                        "message": "Invalid token",
                         "type": "api_error",
                         "code": "access_denied",
                         "param": ""
@@ -125,7 +125,7 @@
                 }
               }
             },
-            "description": "鉴权失败，例如未提供令牌或令牌无效。"
+            "description": "Authentication failed, e.g. missing or invalid token."
           },
           "413": {
             "content": {
@@ -135,10 +135,10 @@
                 },
                 "examples": {
                   "request_too_large": {
-                    "summary": "请求体过大",
+                    "summary": "Request body too large",
                     "value": {
                       "error": {
-                        "message": "请求体过大，请缩小输入后重试",
+                        "message": "Request body too large, please reduce the input and retry",
                         "type": "api_error",
                         "code": "read_request_body_failed",
                         "param": ""
@@ -148,7 +148,7 @@
                 }
               }
             },
-            "description": "请求体过大。"
+            "description": "Request body too large."
           },
           "429": {
             "content": {
@@ -158,10 +158,10 @@
                 },
                 "examples": {
                   "quota_exceeded": {
-                    "summary": "额度不足或速率受限",
+                    "summary": "Insufficient quota or rate limited",
                     "value": {
                       "error": {
-                        "message": "当前账户额度不足，请稍后重试",
+                        "message": "Insufficient account quota, please try again later",
                         "type": "api_error",
                         "code": "insufficient_user_quota",
                         "param": ""
@@ -171,7 +171,7 @@
                 }
               }
             },
-            "description": "触发速率限制或账户额度不足。"
+            "description": "Rate limit triggered or insufficient account quota."
           },
           "500": {
             "content": {
@@ -181,10 +181,10 @@
                 },
                 "examples": {
                   "internal_error": {
-                    "summary": "内部处理失败",
+                    "summary": "Internal processing failure",
                     "value": {
                       "error": {
-                        "message": "服务内部处理失败，请稍后重试",
+                        "message": "Internal processing failed, please try again later",
                         "type": "api_error",
                         "code": "gen_relay_info_failed",
                         "param": ""
@@ -194,7 +194,7 @@
                 }
               }
             },
-            "description": "服务端处理请求时发生内部错误。"
+            "description": "An internal error occurred while processing the request."
           },
           "502": {
             "content": {
@@ -204,10 +204,10 @@
                 },
                 "examples": {
                   "bad_gateway": {
-                    "summary": "上游响应异常",
+                    "summary": "Upstream provider response error",
                     "value": {
                       "error": {
-                        "message": "上游服务返回了无效响应",
+                        "message": "The upstream provider returned an invalid response",
                         "type": "api_error",
                         "code": "bad_response_status_code",
                         "param": ""
@@ -217,7 +217,7 @@
                 }
               }
             },
-            "description": "上游服务返回异常响应。"
+            "description": "The upstream provider returned an abnormal response."
           },
           "503": {
             "content": {
@@ -227,10 +227,10 @@
                 },
                 "examples": {
                   "service_unavailable": {
-                    "summary": "服务暂不可用",
+                    "summary": "Service temporarily unavailable",
                     "value": {
                       "error": {
-                        "message": "当前模型暂时无可用渠道，请稍后重试",
+                        "message": "No available channel for the current model, please try again later",
                         "type": "api_error",
                         "code": "get_channel_failed",
                         "param": ""
@@ -240,7 +240,7 @@
                 }
               }
             },
-            "description": "上游服务暂不可用，或当前模型暂无可用渠道。"
+            "description": "The upstream provider is temporarily unavailable, or no channel is currently available for this model."
           }
         },
         "security": [
@@ -252,8 +252,8 @@
     },
     "/v1/videos/{task_id}": {
       "get": {
-        "summary": "查询 Ali 视频生成任务状态",
-        "description": "根据任务 ID 查询视频生成任务的状态和结果。",
+        "summary": "Query Ali video generation task status",
+        "description": "Query the status and result of a video generation task by task ID.",
         "operationId": "aliQueryFirstLastVideoStatus",
         "tags": [
           "Ali Video"
@@ -266,12 +266,12 @@
             "schema": {
               "type": "string"
             },
-            "description": "视频生成任务 ID。"
+            "description": "Video generation task ID."
           }
         ],
         "responses": {
           "200": {
-            "description": "查询成功，返回任务状态。",
+            "description": "Query successful. Returns the task status.",
             "content": {
               "application/json": {
                 "schema": {
@@ -281,7 +281,7 @@
             }
           },
           "404": {
-            "description": "任务不存在或已过期。",
+            "description": "Task does not exist or has expired.",
             "content": {
               "application/json": {
                 "schema": {
@@ -289,10 +289,10 @@
                 },
                 "examples": {
                   "not_found": {
-                    "summary": "任务不存在",
+                    "summary": "Task not found",
                     "value": {
                       "error": {
-                        "message": "任务不存在或已过期",
+                        "message": "Task does not exist or has expired",
                         "type": "api_error",
                         "code": "task_not_found",
                         "param": ""
@@ -311,10 +311,10 @@
                 },
                 "examples": {
                   "unauthorized": {
-                    "summary": "未授权",
+                    "summary": "Unauthorized",
                     "value": {
                       "error": {
-                        "message": "无效的令牌",
+                        "message": "Invalid token",
                         "type": "api_error",
                         "code": "access_denied",
                         "param": ""
@@ -324,7 +324,7 @@
                 }
               }
             },
-            "description": "鉴权失败，例如未提供令牌或令牌无效。"
+            "description": "Authentication failed, e.g. missing or invalid token."
           },
           "429": {
             "content": {
@@ -334,10 +334,10 @@
                 },
                 "examples": {
                   "quota_exceeded": {
-                    "summary": "额度不足或速率受限",
+                    "summary": "Insufficient quota or rate limited",
                     "value": {
                       "error": {
-                        "message": "当前账户额度不足，请稍后重试",
+                        "message": "Insufficient account quota, please try again later",
                         "type": "api_error",
                         "code": "insufficient_user_quota",
                         "param": ""
@@ -347,7 +347,7 @@
                 }
               }
             },
-            "description": "触发速率限制或账户额度不足。"
+            "description": "Rate limit triggered or insufficient account quota."
           },
           "500": {
             "content": {
@@ -357,10 +357,10 @@
                 },
                 "examples": {
                   "internal_error": {
-                    "summary": "内部处理失败",
+                    "summary": "Internal processing failure",
                     "value": {
                       "error": {
-                        "message": "服务内部处理失败，请稍后重试",
+                        "message": "Internal processing failed, please try again later",
                         "type": "api_error",
                         "code": "gen_relay_info_failed",
                         "param": ""
@@ -370,7 +370,7 @@
                 }
               }
             },
-            "description": "服务端处理请求时发生内部错误。"
+            "description": "An internal error occurred while processing the request."
           },
           "502": {
             "content": {
@@ -380,10 +380,10 @@
                 },
                 "examples": {
                   "bad_gateway": {
-                    "summary": "上游响应异常",
+                    "summary": "Upstream provider response error",
                     "value": {
                       "error": {
-                        "message": "上游服务返回了无效响应",
+                        "message": "The upstream provider returned an invalid response",
                         "type": "api_error",
                         "code": "bad_response_status_code",
                         "param": ""
@@ -393,7 +393,7 @@
                 }
               }
             },
-            "description": "上游服务返回异常响应。"
+            "description": "The upstream provider returned an abnormal response."
           },
           "503": {
             "content": {
@@ -403,10 +403,10 @@
                 },
                 "examples": {
                   "service_unavailable": {
-                    "summary": "服务暂不可用",
+                    "summary": "Service temporarily unavailable",
                     "value": {
                       "error": {
-                        "message": "当前模型暂时无可用渠道，请稍后重试",
+                        "message": "No available channel for the current model, please try again later",
                         "type": "api_error",
                         "code": "get_channel_failed",
                         "param": ""
@@ -416,7 +416,7 @@
                 }
               }
             },
-            "description": "上游服务暂不可用，或当前模型暂无可用渠道。"
+            "description": "The upstream provider is temporarily unavailable, or no channel is currently available for this model."
           }
         },
         "security": [
@@ -446,9 +446,9 @@
           "model": {
             "type": "string",
             "enum": [
-              "wan2.2-kf2v-flash"
+              "wan2.1-kf2v-plus"
             ],
-            "description": "万相首尾帧图生视频模型。"
+            "description": "Wan first-last-frame image-to-video model."
           },
           "images": {
             "type": "array",
@@ -457,19 +457,19 @@
             "items": {
               "type": "string"
             },
-            "description": "首尾帧图像 URL 数组，必须按顺序传入 2 张图：`images[0]` 为首帧，`images[1]` 为尾帧。输出视频的宽高比与首帧图像保持一致，尾帧会被裁剪适配为首帧的宽高比。"
+            "description": "First-last-frame image URL array. Must contain exactly 2 images in order: `images[0]` is the first frame, `images[1]` is the last frame. The output video aspect ratio matches the first frame image; the last frame is cropped to fit the first frame aspect ratio."
           },
           "prompt": {
             "type": "string",
-            "description": "文本提示词，描述首帧到尾帧的变化过程。支持中英文，长度不超过 800 个字符。"
+            "description": "Text prompt describing the transition from first frame to last frame. Supports Chinese and English, up to 800 characters."
           },
           "seconds": {
             "type": "string",
-            "description": "视频生成时长（秒）的字符串形式。当前固定为 `\"5\"`。",
-            "default": "5",
+            "description": "Video duration (seconds) as a string. Currently fixed at `\"5\"`.",
             "enum": [
               "5"
-            ]
+            ],
+            "default": "5"
           },
           "size": {
             "type": "string",
@@ -478,26 +478,26 @@
               "720P",
               "1080P"
             ],
-            "description": "生成视频的分辨率档位。wan2.2-kf2v-flash 支持 480P/720P/1080P，wan2.1-kf2v-plus 支持 720P。",
+            "description": "Output video resolution tier. wan2.2-kf2v-flash supports 480P/720P/1080P, wan2.1-kf2v-plus supports 720P.",
             "default": "720P"
           },
           "prompt_extend": {
             "type": "boolean",
-            "description": "是否开启提示词智能改写。",
+            "description": "Whether to enable intelligent prompt rewriting.",
             "default": true
           },
           "watermark": {
             "type": "boolean",
-            "description": "是否在视频中添加水印。",
+            "description": "Whether to add a watermark to the video.",
             "default": false
           },
           "seed": {
             "type": "integer",
-            "description": "随机数种子，取值范围 [0, 2147483647]。"
+            "description": "Random seed, range [0, 2147483647]."
           },
           "negative_prompt": {
             "type": "string",
-            "description": "反向提示词，描述不希望在视频中看到的内容。长度不超过 500 个字符。"
+            "description": "Negative prompt describing content you do not want in the video. Up to 500 characters."
           }
         }
       },
@@ -577,7 +577,7 @@
           },
           "video_url": {
             "type": "string",
-            "description": "生成视频的下载链接。有效期 24 小时。"
+            "description": "Download URL for the generated video. Valid for 24 hours."
           },
           "metadata": {
             "type": "object",
@@ -612,7 +612,7 @@
               },
               "type": {
                 "type": "string",
-                "description": "错误类型，例如 `invalid_request_error`、`api_error` 或上游兼容错误类型。"
+                "description": "Error type, e.g. `invalid_request_error`, `api_error`, or upstream-compatible error types."
               },
               "code": {
                 "type": "string"
