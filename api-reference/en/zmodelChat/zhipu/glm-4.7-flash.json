@@ -41,7 +41,7 @@
                 "text_chat": {
                   "summary": "Plain text chat",
                   "value": {
-                    "model": "glm-5-turbo",
+                    "model": "glm-4.7-flash",
                     "messages": [
                       {
                         "role": "system",
@@ -59,7 +59,7 @@
                 "thinking_tool_call": {
                   "summary": "Thinking mode with function calling",
                   "value": {
-                    "model": "glm-5",
+                    "model": "glm-4.7-flash",
                     "messages": [
                       {
                         "role": "user",
@@ -98,7 +98,7 @@
                 "vision_chat": {
                   "summary": "Image understanding",
                   "value": {
-                    "model": "glm-5",
+                    "model": "glm-4.7-flash",
                     "messages": [
                       {
                         "role": "user",

@@ -41,7 +41,7 @@
                 "text_chat": {
                   "summary": "纯文本对话",
                   "value": {
-                    "model": "glm-5-turbo",
+                    "model": "glm-5",
                     "messages": [
                       {
                         "role": "system",

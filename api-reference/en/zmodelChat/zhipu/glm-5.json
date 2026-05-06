@@ -41,7 +41,7 @@
                 "text_chat": {
                   "summary": "Plain text chat",
                   "value": {
-                    "model": "glm-5-turbo",
+                    "model": "glm-5",
                     "messages": [
                       {
                         "role": "system",

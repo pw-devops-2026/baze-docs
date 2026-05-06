@@ -59,7 +59,7 @@
                 "thinking_tool_call": {
                   "summary": "思考模式与函数调用",
                   "value": {
-                    "model": "glm-5",
+                    "model": "glm-5-turbo",
                     "messages": [
                       {
                         "role": "user",
@@ -98,7 +98,7 @@
                 "vision_chat": {
                   "summary": "图像理解",
                   "value": {
-                    "model": "glm-5",
+                    "model": "glm-5-turbo",
                     "messages": [
                       {
                         "role": "user",
@@ -138,7 +138,7 @@
                       "id": "chatcmpl_zhipu_123",
                       "object": "chat.completion",
                       "created": 1775174400,
-                      "model": "glm-5",
+                      "model": "glm-5-turbo",
                       "choices": [
                         {
                           "index": 0,
