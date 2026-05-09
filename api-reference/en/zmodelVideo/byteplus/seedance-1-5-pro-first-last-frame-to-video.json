@@ -14,6 +14,7 @@
       "post": {
         "summary": "Seedance 1.5 Pro First & Last Frame to Video",
         "operationId": "seedance15ProFirstLastFrameToVideoEn",
+        "description": "Applicable to the `seedance-1-5-pro-251215` model.",
         "requestBody": {
           "required": true,
           "content": {

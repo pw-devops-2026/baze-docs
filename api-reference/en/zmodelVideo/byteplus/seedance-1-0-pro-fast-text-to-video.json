@@ -13,6 +13,7 @@
     "/v1/videos": {
       "post": {
         "summary": "Seedance 1.0 Pro Fast Text-to-Video",
+        "description": "Applicable to the `seedance-1-0-pro-fast-251015` model.",
         "operationId": "seedance10ProFastTextToVideoEn",
         "tags": [
           "Seedance Video"

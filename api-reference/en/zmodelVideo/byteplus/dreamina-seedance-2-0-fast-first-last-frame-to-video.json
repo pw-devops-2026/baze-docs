@@ -24,7 +24,8 @@
   "paths": {
     "/v1/videos": {
       "post": {
-        "summary": "Seedance 2.0 Fast First & Last Frame to Video",
+        "summary": "Seedance 2.0 Fast First & Last Frame to Video ",
+        "description": "Applicable to the `dreamina-seedance-2-0-fast-260128` model.",
         "operationId": "seedance20FastFirstLastFrameToVideoEn",
         "tags": [
           "Seedance Video"

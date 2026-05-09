@@ -15,6 +15,7 @@
       "post": {
         "summary": "Seedance 1.5 Pro Text-to-Video",
         "operationId": "seedance15ProTextToVideoEn",
+        "description": "Applicable to the `seedance-1-5-pro-251215` model.",
         "requestBody": {
           "required": true,
           "content": {

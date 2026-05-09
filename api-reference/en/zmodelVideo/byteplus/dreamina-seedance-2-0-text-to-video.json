@@ -25,7 +25,7 @@
     "/v1/videos": {
       "post": {
         "summary": "Seedance 2.0 Text-to-Video",
-        "description": "Applicable to the `dreamina-seedance-2-0-260128` model. After submitting a task, please query the status via `GET /v1/videos/{task_id}`.",
+        "description": "dreamina-seedance-2-0-260128\n\nApplicable to the `dreamina-seedance-2-0-260128` model. After submitting a task, please query the status via `GET /v1/videos/{task_id}`.",
         "operationId": "seedance20TextToVideoEn",
         "tags": [
           "Seedance Video"
