@@ -249,6 +249,11 @@
           "sequential_image_generation_options": {
             "type": "object",
             "description": "Sequential image generation options. Only effective when `sequential_image_generation=auto`.",
+            "x-show-when": {
+              "sequential_image_generation": [
+                "auto"
+              ]
+            },
             "properties": {
               "max_images": {
                 "type": "integer",
