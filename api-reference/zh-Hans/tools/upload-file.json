@@ -1,0 +1,55 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "默认模块",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "interface"
+    }
+  ],
+  "paths": {
+    "/interface/upload": {
+      "post": {
+        "summary": "批量上传文件",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "interface"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apifox-ignore-properties": [],
+                  "x-apifox-orders": []
+                }
+              }
+            },
+            "x-apifox-name": "成功",
+            "x-apifox-ordering": 0
+          }
+        },
+        "security": [],
+        "x-apifox-folder": "interface",
+        "x-apifox-status": "developing",
+        "x-run-in-apifox": "https://app.apifox.com/web/project/7926181/apis/api-459943909-run"
+      }
+    }
+  },
+  "webhooks": {},
+  "components": {
+    "schemas": {},
+    "responses": {},
+    "securitySchemes": {}
+  },
+  "servers": [],
+  "security": []
+}
