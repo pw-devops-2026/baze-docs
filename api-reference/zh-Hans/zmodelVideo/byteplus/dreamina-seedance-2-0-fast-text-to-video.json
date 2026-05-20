@@ -124,8 +124,7 @@
             "type": "string",
             "enum": [
               "480p",
-              "720p",
-              "1080p"
+              "720p"
             ],
             "description": "视频输出规格参数。默认 720p。",
             "default": "720p"
