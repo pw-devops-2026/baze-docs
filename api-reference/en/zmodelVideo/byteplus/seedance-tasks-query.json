@@ -14,7 +14,7 @@
   "paths": {
     "/byteplus/api/v3/contents/generations/tasks/{id}": {
       "get": {
-        "summary": "Query Video Generation Task",
+        "summary": "request",
         "operationId": "querySeedanceVideoTask",
         "description": "Retrieves the information of a video generation task.\n\n> Only tasks from the last 7 days can be queried, with a time range of [T-7 days, T), where T is the UTC timestamp (in seconds) when the request is initiated. Note: Video URLs are valid for 24 hours. Please download or save them promptly.",
         "parameters": [
@@ -40,7 +40,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {

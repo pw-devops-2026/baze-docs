@@ -14,7 +14,7 @@
   "paths": {
     "/byteplus/api/v3/contents/generations/tasks/{id}": {
       "get": {
-        "summary": "查询视频生成任务",
+        "summary": "request",
         "operationId": "querySeedanceVideoTask",
         "description": "查询视频生成任务的状态。\n\n> 仅支持查询最近 7 天的任务记录，时间区间为 [T-7天, T)，其中 T 为请求发起时刻的 UTC 时间戳（精确到秒）。注意：视频 URL 有效期为 24 小时，请及时下载或转存。",
         "parameters": [
@@ -40,7 +40,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
