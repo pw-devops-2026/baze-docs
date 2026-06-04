@@ -1,0 +1,280 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Vidu Audio Task Status Query",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://baze-api.powerbuyin.top"
+    }
+  ],
+  "paths": {
+    "/vidu/v1/tasks/{task_id}": {
+      "get": {
+        "summary": "Query Audio Task Status",
+        "operationId": "queryAudioTaskStatusEn",
+        "description": "Query the status and result of an audio generation task by task ID.",
+        "tags": [
+          "Vidu Audio Tasks"
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Task ID returned by the audio creation endpoint (e.g., POST /vidu/v1/audio/text2audio or POST /vidu/v1/audio/timing2audio)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Query successful, returns audio task status information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudioTaskResponse"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Audio generation successful",
+                    "value": {
+                      "state": "success",
+                      "err_code": "",
+                      "credits": 4,
+                      "payload": "",
+                      "creations": [
+                        {
+                          "id": "your_creations_id",
+                          "url": "https://example.com/generated_image.png",
+                          "cover_url": "https://example.com/cover_image.png"
+                        }
+                      ]
+                    }
+                  },
+                  "processing": {
+                    "summary": "Audio task processing",
+                    "value": {
+                      "state": "processing",
+                      "err_code": "",
+                      "credits": 0,
+                      "payload": "",
+                      "creations": []
+                    }
+                  },
+                  "failed": {
+                    "summary": "Audio task failed",
+                    "value": {
+                      "state": "failed",
+                      "err_code": "generation_failed",
+                      "credits": 0,
+                      "payload": "",
+                      "creations": []
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "invalid_request": {
+                    "summary": "Invalid parameters",
+                    "value": {
+                      "code": "bad_request_body",
+                      "message": "Request body format error or invalid field values",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "unauthorized": {
+                    "summary": "Authentication failed",
+                    "value": {
+                      "code": "authentication_failed",
+                      "message": "API key authentication failed",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "not_found": {
+                    "summary": "Task not found",
+                    "value": {
+                      "code": "task_not_found",
+                      "message": "The specified task does not exist",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "rate_limit": {
+                    "summary": "Rate limit exceeded",
+                    "value": {
+                      "code": "rate_limit_exceeded",
+                      "message": "Too many requests, please try again later",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "server_error": {
+                    "summary": "Server error",
+                    "value": {
+                      "code": "internal_server_error",
+                      "message": "An unexpected error occurred on the server",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Pass `Authorization: Bearer <token>` in the request header."
+      }
+    },
+    "schemas": {
+      "AudioTaskResponse": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "created",
+              "queueing",
+              "processing",
+              "success",
+              "failed"
+            ],
+            "description": "Task processing state:\n- **created**: Task created successfully\n- **queueing**: Task in queue\n- **processing**: Task processing\n- **success**: Generation successful\n- **failed**: Task failed"
+          },
+          "err_code": {
+            "type": "string",
+            "description": "Error code returned in case of failure. Empty string if no error."
+          },
+          "credits": {
+            "type": "integer",
+            "description": "The number of credits consumed by this task. Unit: credits."
+          },
+          "payload": {
+            "type": "string",
+            "description": "The payload parameter used for this call."
+          },
+          "bgm": {
+            "type": "boolean",
+            "description": "Whether to use BGM (background music) for this call."
+          },
+          "off_peak": {
+            "type": "boolean",
+            "description": "Whether to use off-peak mode for this call."
+          },
+          "creations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreationResult"
+            },
+            "description": "Generated results array."
+          }
+        }
+      },
+      "CreationResult": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Creation ID."
+          },
+          "url": {
+            "type": "string",
+            "description": "The URL of the generated results, valid for 24 hours."
+          },
+          "cover_url": {
+            "type": "string",
+            "description": "The cover URL of the generated results, valid for 24 hours."
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error code."
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message."
+          },
+          "data": {
+            "type": "object",
+            "nullable": true,
+            "description": "Additional error data."
+          }
+        }
+      }
+    }
+  }
+}

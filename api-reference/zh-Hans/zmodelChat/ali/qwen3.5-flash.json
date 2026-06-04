@@ -259,7 +259,8 @@
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "bearerFormat": "JWT",
+        "description": "在请求头中传入 `Authorization: Bearer <token>`。"
       }
     },
     "schemas": {
@@ -288,7 +289,7 @@
           "stream": {
             "type": "boolean",
             "description": "是否使用流式输出。默认为 false。",
-            "default": false
+            "default": true
           },
           "temperature": {
             "type": "number",
@@ -301,7 +302,8 @@
             "type": "number",
             "description": "核采样概率阈值。",
             "minimum": 0,
-            "maximum": 1
+            "maximum": 1,
+            "default": 0.95
           },
           "max_tokens": {
             "type": "integer",

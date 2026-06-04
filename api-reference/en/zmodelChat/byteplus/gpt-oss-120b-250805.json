@@ -326,7 +326,7 @@
           },
           "stream": {
             "type": "boolean",
-            "default": false,
+            "default": true,
             "description": "Whether to enable streaming output. When `true`, the response content type is `text/event-stream`."
           },
           "stream_options": {
@@ -384,12 +384,14 @@
             "type": "number",
             "minimum": 0,
             "maximum": 2,
+            "default": 0.7,
             "description": "Sampling temperature. Lower values produce more deterministic output; higher values produce more diverse output."
           },
           "top_p": {
             "type": "number",
             "minimum": 0,
             "maximum": 1,
+            "default": 0.95,
             "description": "Nucleus sampling parameter. Typically tuned as an alternative to `temperature`."
           },
           "tools": {

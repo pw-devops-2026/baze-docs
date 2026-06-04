@@ -197,7 +197,8 @@
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "bearerFormat": "JWT",
+        "description": "Pass `Authorization: Bearer <token>` in the request header."
       }
     },
     "schemas": {
@@ -267,7 +268,6 @@
             "type": "integer",
             "format": "int64",
             "description": "Random seed. Explicitly passing `0` is preserved and mapped to upstream `parameters.seed`.",
-            "default": 0,
             "minimum": 0
           }
         }

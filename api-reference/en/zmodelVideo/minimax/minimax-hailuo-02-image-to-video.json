@@ -217,7 +217,8 @@
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "bearerFormat": "JWT",
+        "description": "Pass `Authorization: Bearer <token>` in the request header."
       }
     },
     "schemas": {
@@ -237,7 +238,7 @@
           },
           "image": {
             "type": "string",
-            "description": "First-frame image URL or Data URL."
+            "description": "Image URL or Data URL."
           },
           "prompt": {
             "type": "string",

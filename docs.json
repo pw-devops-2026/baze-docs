@@ -49,6 +49,27 @@
                           "zh-Hans/zmodelImage/byteplus/seedream-5-0-text-to-image",
                           "zh-Hans/zmodelImage/byteplus/seedream-5-0-image-to-image"
                         ]
+                      },
+                      {
+                        "group": "Kling",
+                        "pages": [
+                          "zh-Hans/zmodelImage/kling/kling-v2-image-generations",
+                          "zh-Hans/zmodelImage/kling/kling-v2-new-image-generations",
+                          "zh-Hans/zmodelImage/kling/kling-v3-image-generations",
+                          "zh-Hans/zmodelImage/kling/image-generations-status",
+                          "zh-Hans/zmodelImage/kling/kling-image-o1-image-omni",
+                          "zh-Hans/zmodelImage/kling/kling-v3-omni-image-omni",
+                          "zh-Hans/zmodelImage/kling/omni-image-status",
+                          "zh-Hans/zmodelImage/kling/multi-image2image",
+                          "zh-Hans/zmodelImage/kling/multi-image2image-status"
+                        ]
+                      },
+                      {
+                        "group": "Vidu",
+                        "pages": [
+                          "zh-Hans/zmodelImage/vidu/vidu-reference-to-image",
+                          "zh-Hans/zmodelImage/vidu/vidu-query-task-status"
+                        ]
                       }
                     ]
                   },
@@ -73,7 +94,9 @@
                           "zh-Hans/zmodelVideo/ali/text-to-video",
                           "zh-Hans/zmodelVideo/ali/video-first-last-frame",
                           "zh-Hans/zmodelVideo/ali/video-first-last-frame2",
-                          "zh-Hans/zmodelVideo/ali/wan2.7-i2v"
+                          "zh-Hans/zmodelVideo/ali/wan2.7-i2v-image-to-video",
+                          "zh-Hans/zmodelVideo/ali/wan2.7-i2v-first-last-frame",
+                          "zh-Hans/zmodelVideo/ali/wan2.7-i2v-video-continuation"
                         ]
                       },
                       {
@@ -94,7 +117,44 @@
                           "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-text-to-video",
                           "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-image-to-video",
                           "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-first-last-frame-to-video",
-                          "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-multimodal-reference-to-video"
+                          "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-multimodal-reference-to-video",
+                          {
+                            "group": "字节API兼容",
+                            "pages": [
+                              "zh-Hans/zmodelVideo/byteplus/seedance/seedance-video",
+                              "zh-Hans/zmodelVideo/byteplus/seedance/seedance-tasks-query",
+                              "zh-Hans/zmodelVideo/byteplus/seedance/list-video-generation-tasks",
+                              "zh-Hans/zmodelVideo/byteplus/seedance/cancel-delete-video-task"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "group": "Kling",
+                        "pages": [
+                          "zh-Hans/zmodelVideo/kling/kling-v2-1-master-text2video",
+                          "zh-Hans/zmodelVideo/kling/kling-v2-5-turbo-text2video",
+                          "zh-Hans/zmodelVideo/kling/kling-v3-text2video",
+                          "zh-Hans/zmodelVideo/kling/kling-v2-1-master-image2video",
+                          "zh-Hans/zmodelVideo/kling/kling-v2-5-turbo-image2video",
+                          "zh-Hans/zmodelVideo/kling/kling-v3-image2video",
+                          "zh-Hans/zmodelVideo/kling/kling-v3-motion-control",
+                          "zh-Hans/zmodelVideo/kling/kling-v3-omni-video-omni",
+                          "zh-Hans/zmodelVideo/kling/kling-video-o1-video-omni",
+                          "zh-Hans/zmodelVideo/kling/text2video-status",
+                          "zh-Hans/zmodelVideo/kling/image2video-status",
+                          "zh-Hans/zmodelVideo/kling/video-omni-status",
+                          "zh-Hans/zmodelVideo/kling/motion-control-status"
+                        ]
+                      },
+                      {
+                        "group": "Vidu",
+                        "pages": [
+                          "zh-Hans/zmodelVideo/vidu/vidu-text-to-video",
+                          "zh-Hans/zmodelVideo/vidu/vidu-image-to-video",
+                          "zh-Hans/zmodelVideo/vidu/vidu-reference-to-video",
+                          "zh-Hans/zmodelVideo/vidu/vidu-start-end-to-video",
+                          "zh-Hans/zmodelVideo/vidu/vidu-query-task-status"
                         ]
                       },
                       "zh-Hans/zmodelVideo/minimax/download-video-file",
@@ -168,14 +228,27 @@
                         "pages": [
                           "zh-Hans/zmodelAudio/ali/qwen3-tts-instruct-flash"
                         ]
+                      },
+                      {
+                        "group": "Vidu",
+                        "pages": [
+                          "zh-Hans/zmodelAudio/vidu/vidu-text-to-audio",
+                          "zh-Hans/zmodelAudio/vidu/vidu-timing-to-audio",
+                          "zh-Hans/zmodelAudio/vidu/vidu-query-task-status"
+                        ]
                       }
                     ]
                   },
                   {
-                    "group": "工具栏",
+                    "group": "资产库",
                     "pages": [
-                      "zh-Hans/tools/upload-file",
-                      "zh-Hans/tools/get-asset-id"
+                      "zh-Hans/assetLibrary/upload-file",
+                      "zh-Hans/assetLibrary/group-asset-list",
+                      "zh-Hans/assetLibrary/group-create",
+                      "zh-Hans/assetLibrary/group-delete",
+                      "zh-Hans/assetLibrary/group-list",
+                      "zh-Hans/assetLibrary/group-rename",
+                      "zh-Hans/assetLibrary/get-asset-id"
                     ]
                   }
                 ]
@@ -223,6 +296,27 @@
                           "en/zmodelImage/byteplus/seedream-5-0-text-to-image",
                           "en/zmodelImage/byteplus/seedream-5-0-image-to-image"
                         ]
+                      },
+                      {
+                        "group": "Kling",
+                        "pages": [
+                          "en/zmodelImage/kling/kling-v2-image-generations",
+                          "en/zmodelImage/kling/kling-v2-new-image-generations",
+                          "en/zmodelImage/kling/kling-v3-image-generations",
+                          "en/zmodelImage/kling/image-generations-status",
+                          "en/zmodelImage/kling/kling-image-o1-image-omni",
+                          "en/zmodelImage/kling/kling-v3-omni-image-omni",
+                          "en/zmodelImage/kling/omni-image-status",
+                          "en/zmodelImage/kling/multi-image2image",
+                          "en/zmodelImage/kling/multi-image2image-status"
+                        ]
+                      },
+                      {
+                        "group": "Vidu",
+                        "pages": [
+                          "en/zmodelImage/vidu/vidu-reference-to-image",
+                          "en/zmodelImage/vidu/vidu-query-task-status"
+                        ]
                       }
                     ]
                   },
@@ -247,7 +341,9 @@
                           "en/zmodelVideo/ali/text-to-video",
                           "en/zmodelVideo/ali/video-first-last-frame",
                           "en/zmodelVideo/ali/video-first-last-frame2",
-                          "en/zmodelVideo/ali/wan2.7-i2v"
+                          "en/zmodelVideo/ali/wan2.7-i2v-image-to-video",
+                          "en/zmodelVideo/ali/wan2.7-i2v-first-last-frame",
+                          "en/zmodelVideo/ali/wan2.7-i2v-video-continuation"
                         ]
                       },
                       {
@@ -268,7 +364,44 @@
                           "en/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-text-to-video",
                           "en/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-image-to-video",
                           "en/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-first-last-frame-to-video",
-                          "en/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-multimodal-reference-to-video"
+                          "en/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-multimodal-reference-to-video",
+                          {
+                            "group": "BytePlus API Compat",
+                            "pages": [
+                              "en/zmodelVideo/byteplus/seedance/seedance-video",
+                              "en/zmodelVideo/byteplus/seedance/seedance-tasks-query",
+                              "en/zmodelVideo/byteplus/seedance/list-video-generation-tasks",
+                              "en/zmodelVideo/byteplus/seedance/cancel-delete-video-task"
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "group": "Kling",
+                        "pages": [
+                          "en/zmodelVideo/kling/kling-v2-1-master-text2video",
+                          "en/zmodelVideo/kling/kling-v2-5-turbo-text2video",
+                          "en/zmodelVideo/kling/kling-v3-text2video",
+                          "en/zmodelVideo/kling/kling-v2-1-master-image2video",
+                          "en/zmodelVideo/kling/kling-v2-5-turbo-image2video",
+                          "en/zmodelVideo/kling/kling-v3-image2video",
+                          "en/zmodelVideo/kling/kling-v3-motion-control",
+                          "en/zmodelVideo/kling/kling-v3-omni-video-omni",
+                          "en/zmodelVideo/kling/kling-video-o1-video-omni",
+                          "en/zmodelVideo/kling/text2video-status",
+                          "en/zmodelVideo/kling/image2video-status",
+                          "en/zmodelVideo/kling/video-omni-status",
+                          "en/zmodelVideo/kling/motion-control-status"
+                        ]
+                      },
+                      {
+                        "group": "Vidu",
+                        "pages": [
+                          "en/zmodelVideo/vidu/vidu-text-to-video",
+                          "en/zmodelVideo/vidu/vidu-image-to-video",
+                          "en/zmodelVideo/vidu/vidu-reference-to-video",
+                          "en/zmodelVideo/vidu/vidu-start-end-to-video",
+                          "en/zmodelVideo/vidu/vidu-query-task-status"
                         ]
                       },
                       "en/zmodelVideo/minimax/download-video-file",
@@ -341,14 +474,27 @@
                         "pages": [
                           "en/zmodelAudio/ali/qwen3-tts-instruct-flash"
                         ]
+                      },
+                      {
+                        "group": "Vidu",
+                        "pages": [
+                          "en/zmodelAudio/vidu/vidu-text-to-audio",
+                          "en/zmodelAudio/vidu/vidu-timing-to-audio",
+                          "en/zmodelAudio/vidu/vidu-query-task-status"
+                        ]
                       }
                     ]
                   },
                   {
-                    "group": "tools",
+                    "group": "asset library",
                     "pages": [
-                      "en/tools/upload-file",
-                      "en/tools/get-asset-id"
+                      "en/assetLibrary/upload-file",
+                      "en/assetLibrary/group-asset-list",
+                      "en/assetLibrary/group-create",
+                      "en/assetLibrary/group-delete",
+                      "en/assetLibrary/group-list",
+                      "en/assetLibrary/group-rename",
+                      "en/assetLibrary/get-asset-id"
                     ]
                   }
                 ]

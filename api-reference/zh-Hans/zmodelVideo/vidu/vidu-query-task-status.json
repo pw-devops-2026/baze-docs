@@ -1,0 +1,242 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Vidu 任务状态查询",
+    "version": "1.0.0",
+    "description": "Vidu 统一任务状态查询接口。适用于视频、音频、图片等所有类型的任务查询。"
+  },
+  "servers": [
+    {
+      "url": "https://baze-api.powerbuyin.top",
+      "description": "Baze API 服务地址"
+    }
+  ],
+  "paths": {
+    "/vidu/v1/tasks/{task_id}": {
+      "get": {
+        "summary": "任务状态查询",
+        "operationId": "viduQueryTaskStatus",
+        "description": "根据任务 ID 查询 Vidu 任务的最新状态。",
+        "tags": [
+          "Vidu Tasks"
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "提交接口返回的公开任务ID。"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "查询成功，返回任务状态信息。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskStatusResponse"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "任务完成",
+                    "value": {
+                      "state": "success",
+                      "err_code": "",
+                      "credits": 4,
+                      "payload": "",
+                      "creations": [
+                        {
+                          "id": "your_creations_id",
+                          "url": "your_generated_results_url",
+                          "cover_url": "your_generated_results_cover_url"
+                        }
+                      ]
+                    }
+                  },
+                  "processing": {
+                    "summary": "任务处理中",
+                    "value": {
+                      "state": "processing",
+                      "err_code": "",
+                      "credits": 0,
+                      "payload": "",
+                      "creations": []
+                    }
+                  },
+                  "failed": {
+                    "summary": "任务失败",
+                    "value": {
+                      "state": "failed",
+                      "err_code": "generation_failed",
+                      "credits": 0,
+                      "payload": "",
+                      "creations": []
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "鉴权失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "unauthorized": {
+                    "summary": "未授权",
+                    "value": {
+                      "code": "access_denied",
+                      "message": "无效的令牌",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "任务不存在或已过期。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "not_found": {
+                    "summary": "任务不存在",
+                    "value": {
+                      "code": "task_not_found",
+                      "message": "任务不存在或已过期",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "服务器内部错误。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "server_error": {
+                    "summary": "服务器错误",
+                    "value": {
+                      "code": "internal_server_error",
+                      "message": "服务器内部错误，请稍后重试",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "在请求头中传入 `Authorization: Bearer <token>`。"
+      }
+    },
+    "schemas": {
+      "TaskStatusResponse": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "created",
+              "queueing",
+              "processing",
+              "success",
+              "failed"
+            ],
+            "description": "任务处理状态：\n- **created**: 任务创建成功\n- **queueing**: 任务排队中\n- **processing**: 任务处理中\n- **success**: 生成成功\n- **failed**: 任务失败"
+          },
+          "err_code": {
+            "type": "string",
+            "description": "失败时返回的错误代码。无错误时为空字符串。"
+          },
+          "credits": {
+            "type": "integer",
+            "description": "此任务消耗的积分数量。单位：积分。"
+          },
+          "payload": {
+            "type": "string",
+            "description": "本次调用使用的透传参数。"
+          },
+          "bgm": {
+            "type": "boolean",
+            "description": "本次调用是否使用背景音乐（BGM）。"
+          },
+          "off_peak": {
+            "type": "boolean",
+            "description": "本次调用是否使用非高峰模式。"
+          },
+          "creations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreationResult"
+            },
+            "description": "生成结果数组。"
+          }
+        }
+      },
+      "CreationResult": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "生成结果ID。"
+          },
+          "url": {
+            "type": "string",
+            "description": "生成结果的URL，有效期24小时。"
+          },
+          "cover_url": {
+            "type": "string",
+            "description": "生成结果的封面URL，有效期24小时。"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "错误代码。"
+          },
+          "message": {
+            "type": "string",
+            "description": "错误消息。"
+          },
+          "data": {
+            "type": "object",
+            "nullable": true,
+            "description": "附加错误数据。"
+          }
+        }
+      }
+    }
+  }
+}

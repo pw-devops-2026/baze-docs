@@ -26,7 +26,7 @@
       "post": {
         "summary": "Seedance 2.0 Multimodal Reference to Video",
         "description": "Applicable to the `dreamina-seedance-2-0-260128` model. After submitting a task, please query the status via `GET /v1/videos/{task_id}`.",
-        "operationId": "seedance20MultimodalReferenceEn",
+        "operationId": "seedance20ReferenceToVideoEn",
         "tags": [
           "Seedance Video"
         ],
@@ -90,7 +90,8 @@
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "bearerFormat": "JWT",
+        "description": "Pass `Authorization: Bearer <token>` in the request header."
       }
     },
     "schemas": {
@@ -156,7 +157,7 @@
               "21:9",
               "adaptive"
             ],
-            "description": "Video aspect ratio. Text-to-Video defaults to 16:9, first-frame Image-to-Video defaults to `adaptive`.",
+            "description": "Video aspect ratio. Text-to-Video defaults to 16:9, Image-to-Video defaults to `adaptive`.",
             "default": "16:9"
           },
           "seed": {

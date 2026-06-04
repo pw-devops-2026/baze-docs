@@ -26,7 +26,7 @@
       "post": {
         "summary": "Seedance 2.0 Fast Multimodal Reference to Video",
         "description": "Applicable to the `dreamina-seedance-2-0-fast-260128` model.",
-        "operationId": "seedance20FastMultimodalReferenceEn",
+        "operationId": "seedance20FastReferenceToVideoEn",
         "tags": [
           "Seedance Video"
         ],
@@ -90,7 +90,8 @@
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "bearerFormat": "JWT",
+        "description": "Pass `Authorization: Bearer <token>` in the request header."
       }
     },
     "schemas": {
@@ -139,8 +140,7 @@
             "type": "string",
             "enum": [
               "480p",
-              "720p",
-              "1080p"
+              "720p"
             ],
             "description": "Video output resolution specification. Defaults to 720p.",
             "default": "720p"
@@ -156,7 +156,7 @@
               "21:9",
               "adaptive"
             ],
-            "description": "Video aspect ratio. Text-to-Video defaults to 16:9, first-frame Image-to-Video defaults to `adaptive`.",
+            "description": "Video aspect ratio. Text-to-Video defaults to 16:9, Image-to-Video defaults to `adaptive`.",
             "default": "16:9"
           },
           "seed": {

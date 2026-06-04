@@ -57,7 +57,8 @@
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "bearerFormat": "JWT",
+        "description": "在请求头中传入 `Authorization: Bearer <token>`。"
       }
     },
     "schemas": {
@@ -122,7 +123,7 @@
               "21:9",
               "adaptive"
             ],
-            "description": "视频宽高比。文生视频默认 16:9，首帧图生视频默认 `adaptive`。",
+            "description": "视频宽高比。文生视频默认 16:9，图生视频默认 `adaptive`。",
             "default": "16:9"
           },
           "seed": {

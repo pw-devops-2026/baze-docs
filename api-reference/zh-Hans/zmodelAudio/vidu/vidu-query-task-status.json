@@ -1,0 +1,275 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Vidu 音频任务状态查询",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://baze-api.powerbuyin.top"
+    }
+  ],
+  "paths": {
+    "/vidu/v1/tasks/{task_id}": {
+      "get": {
+        "summary": "查询音频任务状态",
+        "operationId": "queryAudioTaskStatus",
+        "description": "根据任务ID查询音频生成任务的状态和结果。",
+        "tags": [
+          "Vidu Audio Tasks"
+        ],
+        "parameters": [
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "音频创建接口返回的任务ID（例如：POST /vidu/v1/audio/text2audio 或 POST /vidu/v1/audio/timing2audio）。"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "查询成功，返回音频任务状态信息。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudioTaskResponse"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "音频生成成功",
+                    "value": {
+                      "state": "success",
+                      "err_code": "",
+                      "credits": 4,
+                      "payload": "",
+                      "creations": [
+                        {
+                          "id": "your_creations_id",
+                          "url": "https://example.com/generated_image.png",
+                          "cover_url": "https://example.com/cover_image.png"
+                        }
+                      ]
+                    }
+                  },
+                  "processing": {
+                    "summary": "音频任务处理中",
+                    "value": {
+                      "state": "processing",
+                      "err_code": "",
+                      "credits": 0,
+                      "payload": "",
+                      "creations": []
+                    }
+                  },
+                  "failed": {
+                    "summary": "音频任务失败",
+                    "value": {
+                      "state": "failed",
+                      "err_code": "generation_failed",
+                      "credits": 0,
+                      "payload": "",
+                      "creations": []
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "请求参数无效。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "invalid_request": {
+                    "summary": "参数无效",
+                    "value": {
+                      "code": "bad_request_body",
+                      "message": "请求体格式错误或字段值无效",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "认证失败。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "unauthorized": {
+                    "summary": "认证失败",
+                    "value": {
+                      "code": "authentication_failed",
+                      "message": "API密钥认证失败",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "任务不存在。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "not_found": {
+                    "summary": "任务不存在",
+                    "value": {
+                      "code": "task_not_found",
+                      "message": "指定的任务不存在",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "超过速率限制。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "rate_limit": {
+                    "summary": "超过速率限制",
+                    "value": {
+                      "code": "rate_limit_exceeded",
+                      "message": "请求过多，请稍后重试",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "服务器内部错误。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "server_error": {
+                    "summary": "服务器错误",
+                    "value": {
+                      "code": "internal_server_error",
+                      "message": "服务器发生意外错误",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "在请求头中传入 `Authorization: Bearer <token>`。"
+      }
+    },
+    "schemas": {
+      "ImageTaskResponse": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "created",
+              "queueing",
+              "processing",
+              "success",
+              "failed"
+            ],
+            "description": "任务处理状态：\n- **created**: 任务创建成功\n- **queueing**: 任务排队中\n- **processing**: 任务处理中\n- **success**: 生成成功\n- **failed**: 任务失败"
+          },
+          "err_code": {
+            "type": "string",
+            "description": "失败时返回的错误代码。无错误时为空字符串。"
+          },
+          "credits": {
+            "type": "integer",
+            "description": "此任务消耗的积分数量。单位：积分。"
+          },
+          "payload": {
+            "type": "string",
+            "description": "本次调用使用的透传参数。"
+          },
+          "bgm": {
+            "type": "boolean",
+            "description": "本次调用是否使用背景音乐（BGM）。"
+          },
+          "off_peak": {
+            "type": "boolean",
+            "description": "本次调用是否使用非高峰模式。"
+          },
+          "creations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreationResult"
+            },
+            "description": "生成结果数组。"
+          }
+        }
+      },
+      "CreationResult": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "生成结果ID。"
+          },
+          "url": {
+            "type": "string",
+            "description": "生成结果的URL，有效期24小时。"
+          },
+          "cover_url": {
+            "type": "string",
+            "description": "生成结果的封面URL，有效期24小时。"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "错误代码。"
+          },
+          "message": {
+            "type": "string",
+            "description": "错误消息。"
+          },
+          "data": {
+            "type": "object",
+            "nullable": true,
+            "description": "附加错误数据。"
+          }
+        }
+      }
+    }
+  }
+}

@@ -259,7 +259,8 @@
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "bearerFormat": "JWT",
+        "description": "Pass `Authorization: Bearer <token>` in the request header."
       }
     },
     "schemas": {
@@ -288,7 +289,7 @@
           "stream": {
             "type": "boolean",
             "description": "Whether to use streaming output. Defaults to false.",
-            "default": false
+            "default": true
           },
           "temperature": {
             "type": "number",
@@ -301,7 +302,8 @@
             "type": "number",
             "description": "Nucleus sampling probability threshold.",
             "minimum": 0,
-            "maximum": 1
+            "maximum": 1,
+            "default": 0.95
           },
           "max_tokens": {
             "type": "integer",
