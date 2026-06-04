@@ -1,0 +1,174 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "默认模块",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "interface"
+    }
+  ],
+  "paths": {
+    "/interface/group-create": {
+      "post": {
+        "summary": "group-create",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "interface"
+        ],
+        "parameters": [
+          {
+            "name": "Internal-Asset-Key",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "8HpJQT81y8Z2ZJvsnq5z32Vpm6rUWFAm",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "format": "binary",
+                    "type": "string",
+                    "description": "file",
+                    "example": ""
+                  },
+                  "email": {
+                    "description": "email",
+                    "example": "",
+                    "type": "string"
+                  },
+                  "login_style": {
+                    "description": "google,github",
+                    "example": "",
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "assets": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "file_url": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "ext": {
+                                "type": "string"
+                              },
+                              "file_size": {
+                                "type": "integer"
+                              },
+                              "duration": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        },
+                        "group_id": {
+                          "type": "string"
+                        },
+                        "group_name": {
+                          "type": "string"
+                        },
+                        "task_id": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "assets",
+                        "group_id",
+                        "group_name",
+                        "task_id"
+                      ]
+                    },
+                    "msg": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data",
+                    "msg"
+                  ]
+                },
+                "example": {
+                  "code": 200,
+                  "data": {
+                    "assets": [
+                      {
+                        "id": 170,
+                        "file_url": "https://pub-4b7cc9eedad945ec9c28d5548493e66c.r2.dev/upload/20260604100607/f4412571fac9b4f33d8de3ef315d5be9.jpg",
+                        "name": "5308ce78897416214ab5bdc640716fb7.jpg",
+                        "ext": ".jpg",
+                        "file_size": 657139,
+                        "duration": 0
+                      }
+                    ],
+                    "group_id": "group-20260604100609-xbxss",
+                    "group_name": "5308ce78897416214ab5bdc640716fb7.jpg_group"
+                  },
+                  "msg": ""
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "webhooks": {},
+  "components": {
+    "schemas": {},
+    "responses": {},
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://baze.powerbuyin.top/api",
+      "description": "测试环境"
+    },
+    {
+      "url": "https://powertokens.ai/api",
+      "description": "正式环境"
+    }
+  ],
+  "security": []
+}
