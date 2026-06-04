@@ -118,10 +118,15 @@
                           "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-image-to-video",
                           "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-first-last-frame-to-video",
                           "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-multimodal-reference-to-video",
-                          "zh-Hans/zmodelVideo/byteplus/seedance-video",
-                          "zh-Hans/zmodelVideo/byteplus/seedance-tasks-query",
-                          "zh-Hans/zmodelVideo/byteplus/list-video-generation-tasks",
-                          "zh-Hans/zmodelVideo/byteplus/cancel-delete-video-task"
+                          {
+                            "group": "字节API兼容",
+                            "pages": [
+                              "zh-Hans/zmodelVideo/byteplus/seedance/seedance-video",
+                              "zh-Hans/zmodelVideo/byteplus/seedance/seedance-tasks-query",
+                              "zh-Hans/zmodelVideo/byteplus/seedance/list-video-generation-tasks",
+                              "zh-Hans/zmodelVideo/byteplus/seedance/cancel-delete-video-task"
+                            ]
+                          }
                         ]
                       },
                       {
@@ -355,10 +360,15 @@
                           "en/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-image-to-video",
                           "en/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-first-last-frame-to-video",
                           "en/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-multimodal-reference-to-video",
-                          "en/zmodelVideo/byteplus/seedance-video",
-                          "en/zmodelVideo/byteplus/seedance-tasks-query",
-                          "en/zmodelVideo/byteplus/list-video-generation-tasks",
-                          "en/zmodelVideo/byteplus/cancel-delete-video-task"
+                          {
+                            "group": "BytePlus API Compat",
+                            "pages": [
+                              "en/zmodelVideo/byteplus/seedance/seedance-video",
+                              "en/zmodelVideo/byteplus/seedance/seedance-tasks-query",
+                              "en/zmodelVideo/byteplus/seedance/list-video-generation-tasks",
+                              "en/zmodelVideo/byteplus/seedance/cancel-delete-video-task"
+                            ]
+                          }
                         ]
                       },
                       {
