@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Vidu 参考生视频",
+    "title": "Vidu 参考生视频 (viduq3)",
     "version": "1.0.0"
   },
   "servers": [
@@ -12,9 +12,9 @@
   "paths": {
     "/vidu/v1/videos/reference2video": {
       "post": {
-        "summary": "Vidu 参考生视频",
-        "operationId": "viduReferenceToVideo",
-        "description": "使用 Vidu 模型基于参考主体生成视频。支持通过图片、文本定义角色/物体，并在提示词中引用。提交任务后，请通过 `GET /vidu/v1/videos/{task_id}` 查询状态。",
+        "summary": "Vidu 参考生视频 (viduq3)",
+        "operationId": "viduReferenceToVideoViduq3",
+        "description": "使用 Vidu 模型基于参考主体生成视频。支持通过图片、文本定义角色/物体，并在提示词中引用。提交任务后，请通过 `GET /vidu/v1/videos/{task_id}` 查询状态。 使用模型 viduq3。",
         "requestBody": {
           "required": true,
           "content": {
@@ -26,7 +26,7 @@
                 "basic_reference_video": {
                   "summary": "基础参考生视频",
                   "value": {
-                    "model": "viduq3-turbo",
+                    "model": "viduq3",
                     "subjects": [
                       {
                         "name": "小明",
@@ -69,7 +69,7 @@
                 "multi_image_subject": {
                   "summary": "多图片主体参考",
                   "value": {
-                    "model": "viduq3-turbo",
+                    "model": "viduq3",
                     "subjects": [
                       {
                         "name": "产品",
@@ -229,10 +229,9 @@
           "model": {
             "type": "string",
             "enum": [
-              "viduq3-turbo",
               "viduq3"
             ],
-            "description": "视频生成模型名称。\n- **viduq3-turbo**: 支持智能场景切换和音视频同步输出，生成速度最快，性价比最高\n- **viduq3**: 支持智能镜头切换，支持音视频同步输出，在多机位下实现更优的一致性"
+            "description": "视频生成模型名称。\n- **viduq3**: 支持智能镜头切换，支持音视频同步输出，在多机位下实现更优的一致性"
           },
           "auto_subjects": {
             "type": "boolean",

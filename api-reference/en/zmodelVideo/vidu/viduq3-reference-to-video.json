@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Vidu Reference-to-Video",
+    "title": "Vidu Reference-to-Video (viduq3)",
     "version": "1.0.0"
   },
   "servers": [
@@ -12,9 +12,9 @@
   "paths": {
     "/vidu/v1/videos/reference2video": {
       "post": {
-        "summary": "Vidu Reference-to-Video",
-        "operationId": "viduReferenceToVideoEn",
-        "description": "Generate videos using the Vidu model based on reference subjects. Supports defining characters/objects through images and text, and referencing them in prompts. After submission, query status via `GET /vidu/v1/videos/{task_id}`.",
+        "summary": "Vidu Reference-to-Video (viduq3)",
+        "operationId": "viduReferenceToVideoEnViduq3",
+        "description": "Generate videos using the Vidu model based on reference subjects. Supports defining characters/objects through images and text, and referencing them in prompts. After submission, query status via `GET /vidu/v1/videos/{task_id}`. Uses model viduq3.",
         "requestBody": {
           "required": true,
           "content": {
@@ -26,7 +26,7 @@
                 "basic_reference_video": {
                   "summary": "Basic reference-to-video",
                   "value": {
-                    "model": "viduq3-turbo",
+                    "model": "viduq3",
                     "subjects": [
                       {
                         "name": "XiaoMing",
@@ -69,7 +69,7 @@
                 "multi_image_subject": {
                   "summary": "Multi-image subject reference",
                   "value": {
-                    "model": "viduq3-turbo",
+                    "model": "viduq3",
                     "subjects": [
                       {
                         "name": "Product",
@@ -229,10 +229,9 @@
           "model": {
             "type": "string",
             "enum": [
-              "viduq3-turbo",
               "viduq3"
             ],
-            "description": "Video generation model name.\n- **viduq3-turbo**: Supports intelligent scene switching and simultaneous audio and video output, boasts the fastest generation speed, and offers the highest cost-effectiveness\n- **viduq3**: Supports intelligent camera switching, supports simultaneous audio and video output, and achieves superior consistency across multiple camera positions"
+            "description": "Video generation model name.\n- **viduq3**: Supports intelligent camera switching, supports simultaneous audio and video output, and achieves superior consistency across multiple camera positions"
           },
           "auto_subjects": {
             "type": "boolean",

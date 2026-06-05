@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Vidu 首尾帧生视频",
+    "title": "Vidu Start-End-to-Video (viduq3-turbo)",
     "version": "1.0.0"
   },
   "servers": [
@@ -12,9 +12,9 @@
   "paths": {
     "/vidu/v1/videos/start-end2video": {
       "post": {
-        "summary": "Vidu 首尾帧生视频",
-        "operationId": "viduStartEndToVideo",
-        "description": "使用 Vidu 模型基于首尾帧生成视频。提供起始帧和结束帧两张图片，AI 将生成中间过渡动画。提交任务后，请通过 `GET /vidu/v1/videos/{task_id}` 查询状态。",
+        "summary": "Vidu Start-End-to-Video (viduq3-turbo)",
+        "operationId": "viduStartEndToVideoEnViduq3Turbo",
+        "description": "Generate videos using the Vidu model based on start and end frames. Provide two images (start frame and end frame), and AI will generate the transition animation. After submission, query status via `GET /vidu/v1/videos/{task_id}`. Uses model viduq3-turbo.",
         "requestBody": {
           "required": true,
           "content": {
@@ -24,33 +24,33 @@
               },
               "examples": {
                 "basic_start_end_video": {
-                  "summary": "基础首尾帧生视频",
+                  "summary": "Basic start-end-to-video",
                   "value": {
                     "model": "viduq3-turbo",
                     "images": [
                       "https://example.com/start_frame.png",
                       "https://example.com/end_frame.png"
                     ],
-                    "prompt": "一个人从站立到坐下的动作",
+                    "prompt": "A person moving from standing to sitting",
                     "duration": 5
                   }
                 },
                 "with_audio_generation": {
-                  "summary": "带音频生成的首尾帧视频（q3 模型）",
+                  "summary": "Start-end video with audio generation (q3 model)",
                   "value": {
-                    "model": "viduq3-pro",
+                    "model": "viduq3-turbo",
                     "images": [
                       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAE...",
                       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAF..."
                     ],
                     "audio": true,
-                    "prompt": "角色说话并做出手势",
+                    "prompt": "Character speaking and making gestures",
                     "duration": 8,
                     "resolution": "1080p"
                   }
                 },
                 "with_recommended_prompt": {
-                  "summary": "使用推荐提示词的首尾帧视频",
+                  "summary": "Start-end video with recommended prompt",
                   "value": {
                     "model": "viduq3-turbo",
                     "images": [
@@ -68,7 +68,7 @@
         },
         "responses": {
           "200": {
-            "description": "提交成功，返回视频任务对象。",
+            "description": "Submission successful, returns a video task object.",
             "content": {
               "application/json": {
                 "schema": {
@@ -76,11 +76,11 @@
                 },
                 "examples": {
                   "success": {
-                    "summary": "提交成功",
+                    "summary": "Submission successful",
                     "value": {
                       "task_id": "your_task_id_here",
                       "state": "created",
-                      "model": "viduq3-pro",
+                      "model": "viduq3-turbo",
                       "images": [
                         "https://prod-ss-images.s3.cn-northwest-1.amazonaws.com.cn/vidu-maas/template/startend2video-1.jpeg",
                         "https://prod-ss-images.s3.cn-northwest-1.amazonaws.com.cn/vidu-maas/template/startend2video-2.jpeg"
@@ -100,7 +100,7 @@
             }
           },
           "400": {
-            "description": "请求参数不合法。",
+            "description": "Invalid request parameters.",
             "content": {
               "application/json": {
                 "schema": {
@@ -108,10 +108,10 @@
                 },
                 "examples": {
                   "invalid_request": {
-                    "summary": "参数错误",
+                    "summary": "Invalid parameters",
                     "value": {
                       "code": "bad_request_body",
-                      "message": "请求体格式错误或字段取值非法",
+                      "message": "Request body format error or invalid field values",
                       "data": null
                     }
                   }
@@ -120,7 +120,7 @@
             }
           },
           "401": {
-            "description": "鉴权失败。",
+            "description": "Authentication failed.",
             "content": {
               "application/json": {
                 "schema": {
@@ -128,10 +128,10 @@
                 },
                 "examples": {
                   "unauthorized": {
-                    "summary": "未授权",
+                    "summary": "Unauthorized",
                     "value": {
                       "code": "access_denied",
-                      "message": "无效的令牌",
+                      "message": "Invalid token",
                       "data": null
                     }
                   }
@@ -140,7 +140,7 @@
             }
           },
           "429": {
-            "description": "触发速率限制或账户额度不足。",
+            "description": "Rate limit exceeded or insufficient quota.",
             "content": {
               "application/json": {
                 "schema": {
@@ -148,10 +148,10 @@
                 },
                 "examples": {
                   "quota_exceeded": {
-                    "summary": "额度不足",
+                    "summary": "Insufficient quota",
                     "value": {
                       "code": "insufficient_user_quota",
-                      "message": "当前账户额度不足，请稍后重试",
+                      "message": "Insufficient account quota, please try again later",
                       "data": null
                     }
                   }
@@ -160,7 +160,7 @@
             }
           },
           "500": {
-            "description": "服务器内部错误。",
+            "description": "Internal server error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -168,10 +168,10 @@
                 },
                 "examples": {
                   "server_error": {
-                    "summary": "服务器错误",
+                    "summary": "Server error",
                     "value": {
                       "code": "internal_server_error",
-                      "message": "服务器内部错误，请稍后重试",
+                      "message": "Internal server error, please try again later",
                       "data": null
                     }
                   }
@@ -194,7 +194,7 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT",
-        "description": "在请求头中传入 `Authorization: Bearer <token>`。"
+        "description": "Pass `Authorization: Bearer <token>` in the request header."
       }
     },
     "schemas": {
@@ -208,10 +208,9 @@
           "model": {
             "type": "string",
             "enum": [
-              "viduq3-turbo",
-              "viduq3-pro"
+              "viduq3-turbo"
             ],
-            "description": "视频生成模型名称。\n- **viduq3-turbo**: 相比 viduq3-pro，生成速度更快\n- **viduq3-pro**: 支持音画同步，支持分镜视频生成"
+            "description": "Video generation model name.\n- **viduq3-turbo**: Compared to viduq3-pro, the generation speed is faster"
           },
           "images": {
             "type": "array",
@@ -220,25 +219,25 @@
             "items": {
               "type": "string"
             },
-            "description": "两张图片：第一张为起始帧，第二张为结束帧。\n注意事项：\n1. 支持公网 URL 或 Base64 格式\n2. 宽高比必须接近：起始帧与结束帧的宽高比必须在 0.8~1.25 之间\n3. 支持格式：png, jpeg, jpg, webp\n4. 单张图片最大 50MB\n5. HTTP 请求体不超过 20MB，且必须包含适当的内容类型字符串\n6. Base64 格式示例：`data:image/png;base64,{base64_encode}`"
+            "description": "Two images: first is start frame, second is end frame.\nNotes:\n1. Public URL or Base64 format supported\n2. Aspect ratios must be close: ratio between start/end frame must be in 0.8~1.25\n3. Supported formats: png, jpeg, jpg, webp\n4. Max size per image: 50MB\n5. The post body of the HTTP request should not exceed 20MB, and it must include an appropriate content type string\n6. Base64 format example: `data:image/png;base64,{base64_encode}`"
           },
           "prompt": {
             "type": "string",
             "maxLength": 5000,
-            "description": "文本提示词，用于描述视频生成内容，最大长度 5000 字符。\n注意：如果启用了 is_rec 参数使用推荐提示词，模型将忽略此手动输入的提示词。"
+            "description": "Text prompt for describing video generation content, with a maximum length of 5000 characters.\nNote: If the is_rec parameter for recommended prompts is used, the model will ignore the manually entered prompt for this parameter."
           },
           "is_rec": {
             "type": "boolean",
             "default": false,
-            "description": "是否使用推荐提示词。\n- **true**: 是，系统将自动生成并应用推荐提示词来创建视频。推荐提示词数量 = 1\n- **false**: 否，将根据用户提供的提示词生成视频\n注意：启用推荐提示词功能时，每个任务将额外消耗 10 积分。"
+            "description": "Whether to use the recommended prompt.\n- **true**: Yes, the system will automatically generate and apply a recommended prompt to create the video. The number of recommended prompts = 1\n- **false**: No, the video will be generated based on the user-provided prompt\nNote: When the recommended prompt feature is enabled, each task will consume an additional 10 credits."
           },
           "duration": {
             "type": "integer",
-            "description": "视频时长（秒）。不同模型的默认值和可用范围：\n- **viduq3-pro, viduq3-turbo**: 默认 5，可用 1-16\n- **viduq2-pro-fast, viduq2-pro, viduq2-turbo**: 默认 5，可用 1-8\n- **viduq1, viduq1-classic**: 默认 5，可用 5\n- **vidu2.0**: 默认 4，可用 4, 8"
+            "description": "Video duration in seconds. Default values vary by model:\n- **viduq3-pro, viduq3-turbo**: default 5, available: 1-16\n- **viduq2-pro-fast, viduq2-pro, viduq2-turbo**: default 5, available: 1-8\n- **viduq1, viduq1-classic**: default 5, available: 5\n- **vidu2.0**: default 4, available: 4, 8"
           },
           "seed": {
             "type": "integer",
-            "description": "随机种子。\n- 默认为随机种子数\n- 手动设置值将覆盖默认随机种子"
+            "description": "Random seed.\n- Defaults to a random seed number\n- Manually set values will override the default random seed"
           },
           "resolution": {
             "type": "string",
@@ -248,7 +247,7 @@
               "720p",
               "1080p"
             ],
-            "description": "分辨率（基于模型和时长）。\n- **viduq3-pro, viduq3-turbo (1-16s)**: 默认 720p，可选 540p, 720p, 1080p\n- **viduq2-pro-fast (1-8s)**: 默认 720p，可选 720p, 1080p\n- **viduq2-pro, viduq2-turbo (1-8s)**: 默认 720p，可选 540p, 720p, 1080p\n- **viduq1, viduq1-classic (5s)**: 默认 1080p，可选 1080p\n- **vidu2.0 (4s)**: 默认 360p，可选 360p, 720p, 1080p\n- **vidu2.0 (8s)**: 默认 720p，可选 720p"
+            "description": "Resolution (based on model & duration):\n- **viduq3-pro, viduq3-turbo (1-16s)**: default 720p, options: 540p, 720p, 1080p\n- **viduq2-pro-fast (1-8s)**: default 720p, options: 720p, 1080p\n- **viduq2-pro, viduq2-turbo (1-8s)**: default 720p, options: 540p, 720p, 1080p\n- **viduq1, viduq1-classic (5s)**: default 1080p, options: 1080p\n- **vidu2.0 (4s)**: default 360p, options: 360p, 720p, 1080p\n- **vidu2.0 (8s)**: default 720p, options: 720p"
           },
           "movement_amplitude": {
             "type": "string",
@@ -259,27 +258,27 @@
               "large"
             ],
             "default": "auto",
-            "description": "画面中物体的运动幅度。\n- 默认值：auto\n- 可选值：auto, small, medium, large\n注意：修改此参数对 q2、q3 模型无效。"
+            "description": "The movement amplitude of objects in the frame.\n- Default: auto\n- Accepted values: auto, small, medium, large\nNote: Modifying this parameter is ineffective for q2, q3 models."
           },
           "bgm": {
             "type": "boolean",
             "default": false,
-            "description": "是否为生成的视频添加背景音乐。\n- 默认值：false\n- 可选值：true, false\n当设置为 true 时，系统将自动添加合适的背景音乐。\n背景音乐无时长限制，系统自动适配。\n注意：q2 模型在时长为 9 或 10 秒时不生效；q3 模型不支持此参数。"
+            "description": "Whether to add background music to the generated video.\n- Default: false\n- Acceptable values: true, false\nWhen true, the system will automatically add a suitable BGM.\nBGM has no time limit and the system automatically adapts.\nNote: BGM does not take effect when the duration of the q2 model is 9 or 10 seconds; BGM does not available in q3 models."
           },
           "audio": {
             "type": "boolean",
             "default": true,
-            "description": "是否使用直接音视频生成能力。\n- **false**: 不进行直接音视频生成，输出无声视频\n- **true**: 需要音画同步，输出有声视频（包括对话和音效）\n注意 1：仅 q3 模型支持此参数"
+            "description": "Whether to use direct audio-video generation capability.\n- **false**: No direct audio-video generation, outputs silent video\n- **true**: Requires audio-video synchronization, outputs video with sound (including dialogue and sound effects)\nNote 1: Only the q3 models supports this parameter"
           },
           "payload": {
             "type": "string",
             "maxLength": 1048576,
-            "description": "透传参数。\n不做处理，仅做数据透传，最大长度 1048576 字符。"
+            "description": "Transparent transmission parameters.\nNo processing, only data transmission, with a maximum length of 1048576 characters."
           },
           "off_peak": {
             "type": "boolean",
             "default": false,
-            "description": "错峰模式。\n- **true**: 错峰生成模式\n- **false**: 正常生成模式\n说明：\n1. 错峰模式消耗更低积分（详见定价说明）\n2. 错峰模式下提交的任务将在 48 小时内生成，未完成的任务将自动取消并退还积分\n3. 支持取消错峰任务\n4. 除 q3 外的其他直接音视频生成功能"
+            "description": "Off peak mode.\n- **true**: Off peak generate mode\n- **false**: Normal generate mode\nNotes:\n1. The off_peak mode consumes lower points (see Pricing for details)\n2. Tasks submitted in off peak mode will be generated within 48 hours. Tasks that are not completed will be automatically cancelled and their points will be refunded\n3. We also support cancel off_peak tasks\n4. Except for q3, other direct audio-video generation functions"
           }
         }
       },
@@ -288,7 +287,7 @@
         "properties": {
           "task_id": {
             "type": "string",
-            "description": "任务 ID。"
+            "description": "Task ID."
           },
           "state": {
             "type": "string",
@@ -299,59 +298,59 @@
               "success",
               "failed"
             ],
-            "description": "任务处理状态：\n- **created**: 任务创建成功\n- **queueing**: 任务排队中\n- **processing**: 任务处理中\n- **success**: 生成成功\n- **failed**: 任务失败"
+            "description": "Task processing state:\n- **created**: Task created successfully\n- **queueing**: Task in queue\n- **processing**: Task processing\n- **success**: Generation successful\n- **failed**: Task failed"
           },
           "model": {
             "type": "string",
-            "description": "本次调用使用的模型参数。"
+            "description": "Model parameter used for this call."
           },
           "images": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "本次调用使用的图片列表（首帧和尾帧）。"
+            "description": "Images used for this call (start frame and end frame)."
           },
           "prompt": {
             "type": "string",
-            "description": "本次调用使用的文本提示词。"
+            "description": "Text prompt used for this call."
           },
           "duration": {
             "type": "integer",
-            "description": "本次调用使用的视频时长参数。"
+            "description": "Video duration parameter used for this call."
           },
           "seed": {
             "type": "integer",
-            "description": "本次调用使用的随机种子参数。"
+            "description": "Random seed parameter used for this call."
           },
           "resolution": {
             "type": "string",
-            "description": "本次调用使用的分辨率参数。"
+            "description": "Resolution parameter used for this call."
           },
           "bgm": {
             "type": "boolean",
-            "description": "本次调用使用的背景音乐参数。"
+            "description": "Background music parameter used for this call."
           },
           "movement_amplitude": {
             "type": "string",
-            "description": "本次调用使用的镜头运动幅度参数。"
+            "description": "Camera movement amplitude parameter used for this call."
           },
           "payload": {
             "type": "string",
-            "description": "本次调用使用的透传参数。"
+            "description": "Payload parameter used for this call."
           },
           "off_peak": {
             "type": "boolean",
-            "description": "本次调用使用的错峰模式参数。"
+            "description": "Off-peak mode parameter used for this call."
           },
           "credits": {
             "type": "integer",
-            "description": "本次调用消耗的积分。"
+            "description": "Credits consumed for this call."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "description": "任务创建时间。"
+            "description": "Task creation time."
           }
         }
       },
@@ -360,16 +359,16 @@
         "properties": {
           "code": {
             "type": "string",
-            "description": "错误代码。"
+            "description": "Error code."
           },
           "message": {
             "type": "string",
-            "description": "错误描述信息。"
+            "description": "Error description message."
           },
           "data": {
             "type": "object",
             "nullable": true,
-            "description": "附加的错误数据（可选）。"
+            "description": "Additional error data (optional)."
           }
         }
       }

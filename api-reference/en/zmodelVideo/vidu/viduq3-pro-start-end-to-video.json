@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Vidu Start-End-to-Video",
+    "title": "Vidu Start-End-to-Video (viduq3-pro)",
     "version": "1.0.0"
   },
   "servers": [
@@ -12,9 +12,9 @@
   "paths": {
     "/vidu/v1/videos/start-end2video": {
       "post": {
-        "summary": "Vidu Start-End-to-Video",
-        "operationId": "viduStartEndToVideoEn",
-        "description": "Generate videos using the Vidu model based on start and end frames. Provide two images (start frame and end frame), and AI will generate the transition animation. After submission, query status via `GET /vidu/v1/videos/{task_id}`.",
+        "summary": "Vidu Start-End-to-Video (viduq3-pro)",
+        "operationId": "viduStartEndToVideoEnViduq3Pro",
+        "description": "Generate videos using the Vidu model based on start and end frames. Provide two images (start frame and end frame), and AI will generate the transition animation. After submission, query status via `GET /vidu/v1/videos/{task_id}`. Uses model viduq3-pro.",
         "requestBody": {
           "required": true,
           "content": {
@@ -26,7 +26,7 @@
                 "basic_start_end_video": {
                   "summary": "Basic start-end-to-video",
                   "value": {
-                    "model": "viduq3-turbo",
+                    "model": "viduq3-pro",
                     "images": [
                       "https://example.com/start_frame.png",
                       "https://example.com/end_frame.png"
@@ -52,7 +52,7 @@
                 "with_recommended_prompt": {
                   "summary": "Start-end video with recommended prompt",
                   "value": {
-                    "model": "viduq3-turbo",
+                    "model": "viduq3-pro",
                     "images": [
                       "https://example.com/frame1.jpg",
                       "https://example.com/frame2.jpg"
@@ -208,10 +208,9 @@
           "model": {
             "type": "string",
             "enum": [
-              "viduq3-turbo",
               "viduq3-pro"
             ],
-            "description": "Video generation model name.\n- **viduq3-turbo**: Compared to viduq3-pro, the generation speed is faster\n- **viduq3-pro**: Supports audio-video synchronization, supports storyboard video generation"
+            "description": "Video generation model name.\n- **viduq3-pro**: Supports audio-video synchronization, supports storyboard video generation"
           },
           "images": {
             "type": "array",
