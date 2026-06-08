@@ -400,7 +400,7 @@
             "description": "Off-peak mode parameter used for this call."
           },
           "credits": {
-            "type": "string",
+            "type": "integer",
             "description": "Credits consumed for this call."
           },
           "created_at": {
