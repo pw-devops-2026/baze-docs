@@ -345,43 +345,6 @@
           }
         }
       },
-      "ViduVideoResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique identifier for the video task."
-          },
-          "task_id": {
-            "type": "string",
-            "description": "Task ID used to query video status."
-          },
-          "object": {
-            "type": "string",
-            "example": "video",
-            "description": "Object type, fixed as 'video'."
-          },
-          "model": {
-            "type": "string",
-            "description": "Model name used for generation."
-          },
-          "status": {
-            "type": "string",
-            "example": "queued",
-            "description": "Task status. Possible values: queued, processing, completed, failed."
-          },
-          "progress": {
-            "type": "integer",
-            "example": 0,
-            "description": "Task progress percentage (0-100)."
-          },
-          "created_at": {
-            "type": "integer",
-            "format": "int64",
-            "description": "Task creation timestamp (Unix timestamp)."
-          }
-        }
-      },
       "ErrorResponse": {
         "type": "object",
         "properties": {
