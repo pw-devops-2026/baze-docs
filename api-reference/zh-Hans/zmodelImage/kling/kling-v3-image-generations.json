@@ -54,7 +54,7 @@
                 "request": {
                   "summary": "请求示例",
                   "value": {
-                    "model_name": "kling-v2-1",
+                    "model_name": "kling-v3",
                     "prompt": "生成皮克斯风格的小狗",
                     "negative_prompt": "",
                     "image": "https://p1-kling.klingai.com/kcdn/cdn-kcdn112452/kling-qa-test/dog.png",
