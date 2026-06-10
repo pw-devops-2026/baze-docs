@@ -84,7 +84,7 @@
                       "request_id": "string",
                       "data": {
                         "task_id": "string",
-                        "task_status": "submitted",
+                        "task_status": "string",
                         "task_info": {
                           "external_task_id": "string"
                         },
@@ -271,7 +271,7 @@
               },
               "task_status": {
                 "type": "string",
-                "description": "任务状态",
+                "description": "任务状态，枚举值：submitted（已提交）、processing（处理中）、succeed（成功）、failed（失败）",
                 "enum": [
                   "submitted",
                   "processing",
