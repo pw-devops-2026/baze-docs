@@ -325,7 +325,7 @@
           },
           "external_task_id": {
             "type": "string",
-            "description": "自定义任务ID"
+            "description": "自定义任务ID。\n- 传入不会覆盖系统生成的任务ID，但支持通过该ID进行任务查询。\n- 请注意，单用户下需要保证唯一性。"
           }
         }
       },
