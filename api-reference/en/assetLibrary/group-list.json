@@ -13,13 +13,24 @@
   "paths": {
     "/v1/asset/groups/list": {
       "post": {
-        "summary": "组列表",
+        "summary": "group list",
         "deprecated": false,
         "description": "",
         "tags": [
           "interface"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Official website API key",
+            "required": true,
+            "example": "XQujstE5wKqI0xecMJA8lQiq90OHygNIuI1X57zJqltTlOyY",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {

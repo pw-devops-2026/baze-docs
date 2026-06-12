@@ -23,7 +23,7 @@
           {
             "name": "Authorization",
             "in": "header",
-            "description": "",
+            "description": "Official website API key",
             "required": false,
             "example": "XQujstE5wKqI0xecMJA8lQiq90OHygNIuI1X57zJqltTlOyY",
             "schema": {
