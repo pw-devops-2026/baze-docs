@@ -21,13 +21,15 @@
                 "pages": [
                   "zh-Hans/guides/powertokens-quickstart",
                   "zh-Hans/guides/api-key-and-model-call",
-                  "zh-Hans/guides/logs-and-usage"
+                  "zh-Hans/guides/logs-and-usage",
+                  "zh-Hans/guides/seedance2-quick-start"
                 ]
               }
             ]
           },
           {
             "tab": "模型接口",
+            "expanded": true,
             "pages": [
               {
                 "group": "聊天模型",
@@ -259,7 +261,7 @@
               {
                 "group": "资产库",
                 "pages": [
-                  "zh-Hans/assetLibrary/guides",
+                  "zh-Hans/assetLibrary/operation_guide",
                   "zh-Hans/assetLibrary/upload-file",
                   "zh-Hans/assetLibrary/group-asset-list",
                   "zh-Hans/assetLibrary/group-create",
@@ -285,7 +287,8 @@
                 "pages": [
                   "en/guides/powertokens-quickstart",
                   "en/guides/api-key-and-model-call",
-                  "en/guides/logs-and-usage"
+                  "en/guides/logs-and-usage",
+                  "en/guides/seedance2-quick-start"
                 ]
               }
             ]
@@ -522,7 +525,7 @@
               {
                 "group": "asset library",
                 "pages": [
-                  "en/assetLibrary/guides",
+                  "en/assetLibrary/operation_guide",
                   "en/assetLibrary/upload-file",
                   "en/assetLibrary/group-asset-list",
                   "en/assetLibrary/group-create",
@@ -562,10 +565,5 @@
     }
   },
   "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
   }
 }
