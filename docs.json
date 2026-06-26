@@ -48,7 +48,6 @@
                   {
                     "group": "阿里巴巴",
                     "pages": [
-                      "zh-Hans/zmodelChat/ali/deepseek-v3.2",
                       "zh-Hans/zmodelChat/ali/qwen3.5-flash",
                       "zh-Hans/zmodelChat/ali/qwen3.6-plus",
                       "zh-Hans/zmodelChat/ali/qwen3-coder-plus",
@@ -59,7 +58,6 @@
                     "group": "字节",
                     "pages": [
                       "zh-Hans/zmodelChat/byteplus/deepseek-v3-2-251201",
-                      "zh-Hans/zmodelChat/byteplus/gpt-oss-120b-250805",
                       "zh-Hans/zmodelChat/byteplus/seed-1-6-250915",
                       "zh-Hans/zmodelChat/byteplus/seed-1-6-flash-250715",
                       "zh-Hans/zmodelChat/byteplus/seed-1-8-251228",
@@ -180,6 +178,10 @@
                       "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-image-to-video",
                       "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-first-last-frame-to-video",
                       "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-multimodal-reference-to-video",
+                      "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-mini-text-to-video",
+                      "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-mini-image-to-video",
+                      "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-mini-first-last-frame-to-video",
+                      "zh-Hans/zmodelVideo/byteplus/dreamina-seedance-2-0-mini-multimodal-reference-to-video",
                       {
                         "group": "字节API兼容",
                         "pages": [
@@ -273,6 +275,17 @@
                 ]
               }
             ]
+          },
+          {
+            "tab": "生态工具",
+            "pages": [
+              "zh-Hans/ecosystem-tools/text-model-protocols",
+              "zh-Hans/ecosystem-tools/opencode",
+              "zh-Hans/ecosystem-tools/claude-code",
+              "zh-Hans/ecosystem-tools/kilo-code",
+              "zh-Hans/ecosystem-tools/hermes-agent",
+              "zh-Hans/ecosystem-tools/openclaw"
+            ]
           }
         ]
       },
@@ -312,7 +325,6 @@
                   {
                     "group": "Alibaba",
                     "pages": [
-                      "en/zmodelChat/ali/deepseek-v3.2",
                       "en/zmodelChat/ali/qwen3.5-flash",
                       "en/zmodelChat/ali/qwen3.6-plus",
                       "en/zmodelChat/ali/qwen3-coder-plus",
@@ -323,7 +335,6 @@
                     "group": "BytePlus",
                     "pages": [
                       "en/zmodelChat/byteplus/deepseek-v3-2-251201",
-                      "en/zmodelChat/byteplus/gpt-oss-120b-250805",
                       "en/zmodelChat/byteplus/seed-1-6-250915",
                       "en/zmodelChat/byteplus/seed-1-6-flash-250715",
                       "en/zmodelChat/byteplus/seed-1-8-251228",
@@ -444,6 +455,10 @@
                       "en/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-image-to-video",
                       "en/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-first-last-frame-to-video",
                       "en/zmodelVideo/byteplus/dreamina-seedance-2-0-fast-multimodal-reference-to-video",
+                      "en/zmodelVideo/byteplus/dreamina-seedance-2-0-mini-text-to-video",
+                      "en/zmodelVideo/byteplus/dreamina-seedance-2-0-mini-image-to-video",
+                      "en/zmodelVideo/byteplus/dreamina-seedance-2-0-mini-first-last-frame-to-video",
+                      "en/zmodelVideo/byteplus/dreamina-seedance-2-0-mini-multimodal-reference-to-video",
                       {
                         "group": "BytePlus API Compat",
                         "pages": [
@@ -536,6 +551,17 @@
                   "en/assetLibrary/get-authorize-url"
                 ]
               }
+            ]
+          },
+          {
+            "tab": "Ecosystem tools",
+            "pages": [
+              "en/ecosystem-tools/text-model-protocols",
+              "en/ecosystem-tools/opencode",
+              "en/ecosystem-tools/claude-code",
+              "en/ecosystem-tools/kilo-code",
+              "en/ecosystem-tools/hermes-agent",
+              "en/ecosystem-tools/openclaw"
             ]
           }
         ]
