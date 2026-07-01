@@ -71,7 +71,7 @@
                         "content": [
                           {
                             "type": "text",
-                            "text": "First identify the product in the image, then use the video to determine the scene it is placed in."
+                            "text": "First identify the product in the image, and use the video to determine the scene it is placed in."
                           },
                           {
                             "type": "image_url",

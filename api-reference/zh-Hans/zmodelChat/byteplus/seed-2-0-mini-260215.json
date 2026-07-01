@@ -25,7 +25,7 @@
     "/v1/chat/completions": {
       "post": {
         "summary": "seed-2-0-mini-260215",
-        "description": "调用 BytePlus chat completions 能力。\n\n支持模型包括 `seed-2-0-mini-260215` \n\n本文档公开字段：`model`、`messages`、`thinking`、`stream`、`stream_options.include_usage`、`stream_options.chunk_include_usage`、`max_tokens`、`max_completion_tokens`、`stop`、`reasoning_effort`、`response_format`、`frequency_penalty`、`presence_penalty`、`temperature`、`top_p`、`logprobs`、`top_logprobs`、`tools`、`parallel_tool_calls`、`tool_choice`。`messages[].content` 支持 `text`、`image_url`、`video_url` 多模态分片；`assistant` 消息支持 `reasoning_content` 与 `tool_calls`。",
+        "description": "调用 BytePlus chat completions capability。\n\n支持模型包括 `seed-2-0-mini-260215`。\n\n本文档公开字段：`model`、`messages`、`thinking`、`stream`、`stream_options.include_usage`、`stream_options.chunk_include_usage`、`max_tokens`、`max_completion_tokens`、`stop`、`reasoning_effort`、`response_format`、`frequency_penalty`、`presence_penalty`、`temperature`、`top_p`、`logprobs`、`top_logprobs`、`tools`、`parallel_tool_calls`、`tool_choice`。`messages[].content` 支持 `text`、`image_url`、`video_url` 多模态分片；`assistant` 消息支持 `reasoning_content` 与 `tool_calls`。",
         "operationId": "byteplusChatCompletions",
         "tags": [
           "BytePlus Chat"
@@ -71,7 +71,7 @@
                         "content": [
                           {
                             "type": "text",
-                            "text": "请先识别图片中的商品，再结合视频画面判断它被放在什么场景里。"
+                            "text": "请先识别图片中的商品，并结合视频画面判断它被放在什么场景里。"
                           },
                           {
                             "type": "image_url",
