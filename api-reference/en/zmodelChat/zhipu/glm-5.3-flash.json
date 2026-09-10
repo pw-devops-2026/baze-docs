@@ -3,7 +3,7 @@
   "info": {
     "title": "Zhipu Chat Completions",
     "version": "1.0.0",
-    "description": "Zhipu Chat Completions documentation. The unified API endpoint is `/v1/chat/completions`, supporting text chat, streaming output, thinking mode, and function tool calls.\n\nSupported model: `glm-5.1`.\n\nThis document covers the following request fields: `model`, `messages`, `stream`, `thinking`, `temperature`, `top_p`, `max_tokens`, `stop`, `tools`, `tool_choice`.",
+    "description": "Zhipu Chat Completions documentation. The unified API endpoint is `/v1/chat/completions`, supporting text chat, streaming output, thinking mode, multimodal content (image/video understanding), and function tool calls.\n\nSupported model: `glm-5.3-flash`.\n\nThis document covers the following request fields: `model`, `messages`, `stream`, `thinking`, `temperature`, `top_p`, `max_tokens`, `stop`, `tools`, `tool_choice`.",
     "license": {
       "name": "Project License",
       "url": "https://github.com/QuantumNous/new-api/blob/main/LICENSE"
@@ -25,8 +25,8 @@
     "/v1/chat/completions": {
       "post": {
         "summary": "Zhipu Chat Completions",
-        "description": "Unified endpoint for Zhipu GLM series chat models exposed through the baze platform.\n\nSupported model: `glm-5.1`.\n\nDocumented fields: `model`, `messages`, `stream`, `thinking`, `temperature`, `top_p`, `max_tokens`, `stop`, `tools`, `tool_choice`.",
-        "operationId": "zhipuChatCompletionsGlm51",
+        "description": "Unified endpoint for Zhipu GLM series chat models exposed through the baze platform.\n\nSupported model: `glm-5.3-flash`. The same path supports plain text chat, as well as multimodal requests containing `image_url` or `video_url` content parts.\n\nDocumented fields: `model`, `messages`, `stream`, `thinking`, `temperature`, `top_p`, `max_tokens`, `stop`, `tools`, `tool_choice`.",
+        "operationId": "zhipuChatCompletionsGlm53Flash",
         "x-capability": "chat",
         "tags": [
           "Zhipu Chat"
@@ -42,7 +42,7 @@
                 "text_chat": {
                   "summary": "Plain text chat",
                   "value": {
-                    "model": "glm-5.1",
+                    "model": "glm-5.3-flash",
                     "messages": [
                       {
                         "role": "system",
@@ -60,7 +60,7 @@
                 "thinking_tool_call": {
                   "summary": "Thinking mode with function calling",
                   "value": {
-                    "model": "glm-5.1",
+                    "model": "glm-5.3-flash",
                     "messages": [
                       {
                         "role": "user",
@@ -95,6 +95,52 @@
                     "tool_choice": "auto",
                     "stream": true
                   }
+                },
+                "vision_chat": {
+                  "summary": "Image understanding (multimodal)",
+                  "value": {
+                    "model": "glm-5.3-flash",
+                    "messages": [
+                      {
+                        "role": "user",
+                        "content": [
+                          {
+                            "type": "image_url",
+                            "image_url": {
+                              "url": "https://example.com/image.jpg"
+                            }
+                          },
+                          {
+                            "type": "text",
+                            "text": "What is in this image?"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "video_chat": {
+                  "summary": "Video understanding (multimodal)",
+                  "value": {
+                    "model": "glm-5.3-flash",
+                    "messages": [
+                      {
+                        "role": "user",
+                        "content": [
+                          {
+                            "type": "video_url",
+                            "video_url": {
+                              "url": "https://example.com/video.mp4"
+                            }
+                          },
+                          {
+                            "type": "text",
+                            "text": "Describe this video."
+                          }
+                        ]
+                      }
+                    ]
+                  }
                 }
               }
             }
@@ -115,7 +161,7 @@
                       "id": "chatcmpl_zhipu_123",
                       "object": "chat.completion",
                       "created": 1775174400,
-                      "model": "glm-5.1",
+                      "model": "glm-5.3-flash",
                       "choices": [
                         {
                           "index": 0,
@@ -147,7 +193,7 @@
                 "examples": {
                   "stream": {
                     "summary": "Streaming response fragment",
-                    "value": "data: {\"id\":\"chatcmpl_zhipu_123\",\"object\":\"chat.completion.chunk\",\"created\":1775174400,\"model\":\"glm-5.1\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"Today's weather\"},\"finish_reason\":null}]}\n\ndata: {\"id\":\"chatcmpl_zhipu_123\",\"object\":\"chat.completion.chunk\",\"created\":1775174400,\"model\":\"glm-5.1\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" is sunny, great for going outside.\"},\"finish_reason\":\"stop\"}]}\n\ndata: [DONE]\n"
+                    "value": "data: {\"id\":\"chatcmpl_zhipu_123\",\"object\":\"chat.completion.chunk\",\"created\":1775174400,\"model\":\"glm-5.3-flash\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"Today's weather\"},\"finish_reason\":null}]}\n\ndata: {\"id\":\"chatcmpl_zhipu_123\",\"object\":\"chat.completion.chunk\",\"created\":1775174400,\"model\":\"glm-5.3-flash\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" is sunny, great for going outside.\"},\"finish_reason\":\"stop\"}]}\n\ndata: [DONE]\n"
                   }
                 }
               }
@@ -320,15 +366,15 @@
         "properties": {
           "model": {
             "type": "string",
-            "description": "Model name. Supported model: `glm-5.1`.",
-            "example": "glm-5.1",
+            "description": "Model name. Supported model: `glm-5.3-flash`.",
+            "example": "glm-5.3-flash",
             "enum": [
-              "glm-5.1"
+              "glm-5.3-flash"
             ]
           },
           "messages": {
             "type": "array",
-            "description": "Message list. The request must contain at least one message that is not `system` or `assistant`; sending only `system` or only `assistant` messages will be rejected by the upstream provider.",
+            "description": "Message list. Supports text content and multimodal content (image/video + text). The request must contain at least one message that is not `system` or `assistant`; sending only `system` or only `assistant` messages will be rejected by the upstream provider.",
             "items": {
               "$ref": "#/components/schemas/Message"
             },
@@ -341,6 +387,20 @@
           },
           "thinking": {
             "$ref": "#/components/schemas/ThinkingConfig"
+          },
+          "reasoning_effort": {
+            "type": "string",
+            "enum": [
+              "max",
+              "xhigh",
+              "high",
+              "medium",
+              "low",
+              "minimal",
+              "none"
+            ],
+            "default": "max",
+            "description": "Controls the model's reasoning intensity. Takes effect when thinking is enabled. Defaults to max. Only supported by GLM-5.2 and above models. For GLM-5.3 / GLM-5.3-FLASH models, only low / high / max tiers are supported. For GLM-5.2 models, passing none or minimal causes the model to skip thinking; passing low / medium maps to high; passing xhigh maps to max."
           },
           "temperature": {
             "type": "number",
@@ -401,8 +461,20 @@
             "description": "Message role."
           },
           "content": {
-            "description": "Message content.",
-            "type": "string"
+            "description": "Message content. Supports plain text or multimodal content arrays (for image/video understanding).",
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "Text content."
+              },
+              {
+                "type": "array",
+                "description": "Multimodal content list (for image/video understanding).",
+                "items": {
+                  "$ref": "#/components/schemas/ContentItem"
+                }
+              }
+            ]
           },
           "tool_calls": {
             "type": "array",
@@ -417,6 +489,47 @@
           }
         }
       },
+      "ContentItem": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image_url",
+              "video_url"
+            ],
+            "description": "Content type."
+          },
+          "text": {
+            "type": "string",
+            "description": "Text content. Required when type=text."
+          },
+          "image_url": {
+            "type": "object",
+            "description": "Image information. Required when type=image_url.",
+            "properties": {
+              "url": {
+                "type": "string",
+                "description": "Image URL or Base64-encoded image data."
+              }
+            }
+          },
+          "video_url": {
+            "type": "object",
+            "description": "Video information. Required when type=video_url.",
+            "properties": {
+              "url": {
+                "type": "string",
+                "description": "Video URL or Base64-encoded video data."
+              }
+            }
+          }
+        }
+      },
       "ThinkingConfig": {
         "type": "object",
         "description": "Thinking mode configuration. Applicable to models that support the `thinking` parameter.",
@@ -424,8 +537,7 @@
           "type": {
             "type": "string",
             "enum": [
-              "enabled",
-              "disabled"
+              "enabled"
             ],
             "default": "enabled",
             "description": "Whether to enable thinking mode."
