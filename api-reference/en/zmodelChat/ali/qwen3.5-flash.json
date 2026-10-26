@@ -1,4 +1,4 @@
-{
+﻿{
   "openapi": "3.0.1",
   "info": {
     "title": "qwen3.5-flash Chat Completions",
@@ -106,7 +106,7 @@
                 "streaming_chat": {
                   "summary": "Streaming output",
                   "value": {
-                    "model": "qwen3-max",
+                    "model": "qwen3.5-flash",
                     "messages": [
                       {
                         "role": "user",
@@ -309,6 +309,9 @@
             "items": {
               "$ref": "#/components/schemas/Message"
             }
+          },
+          "thinking": {
+            "$ref": "#/components/schemas/ThinkingConfig"
           },
           "stream": {
             "type": "boolean",
@@ -544,6 +547,21 @@
           "total_tokens": {
             "type": "integer",
             "description": "Total number of tokens."
+          }
+        }
+      },
+      "ThinkingConfig": {
+        "type": "object",
+        "description": "Controls switching between thinking and non-thinking modes.",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "enabled",
+              "disabled"
+            ],
+            "default": "enabled",
+            "description": "If set to enabled, thinking mode is used. If set to disabled, non-thinking mode is used."
           }
         }
       },

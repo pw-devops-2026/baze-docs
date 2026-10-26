@@ -1,4 +1,4 @@
-{
+﻿{
   "openapi": "3.0.1",
   "info": {
     "title": "qwen3.6-plus 对话补全",
@@ -83,7 +83,7 @@
                 "streaming_chat": {
                   "summary": "流式输出",
                   "value": {
-                    "model": "qwen3-max",
+                    "model": "qwen3-coder-plus",
                     "messages": [
                       {
                         "role": "user",
@@ -286,6 +286,9 @@
             "items": {
               "$ref": "#/components/schemas/Message"
             }
+          },
+          "thinking": {
+            "$ref": "#/components/schemas/ThinkingConfig"
           },
           "stream": {
             "type": "boolean",
@@ -510,6 +513,21 @@
           "total_tokens": {
             "type": "integer",
             "description": "总 token 数量。"
+          }
+        }
+      },
+      "ThinkingConfig": {
+        "type": "object",
+        "description": "控制思考模式与非思考模式的转换。",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "enabled",
+              "disabled"
+            ],
+            "default": "enabled",
+            "description": "如果设为 enabled，则使用思考模式。如果设为 disabled，则使用非思考模式。"
           }
         }
       },
